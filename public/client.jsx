@@ -28,16 +28,32 @@ socket.on('nxws readers', function(msg) {
   numberOfReaders.set(Number(msg));
 });
 
+
 var NewsItem = React.createClass({
+  getInitialState: function() {
+    return { insertionTime: new Date() }
+  },  
+  getBaseURL: function(url) {
+    if (url.slice(0,4) != 'http') {
+      url = 'http://' + url;
+    }
+    var a = document.createElement('a');
+    a.href = url;
+    if (a.hostname == 'http')
+      console.log(url, a.hostname)
+    return a.hostname.replace(/^www./, '');
+  },
 	render: function() {
-    var fmtDate = new Date(this.props.info.date).toLocaleTimeString();
+    var hosturl = this.getBaseURL(this.props.info.metalink);
+    var fmtDate = moment(this.state.insertionTime).fromNow()
 		return (
-			<div className="newsItems">
+			<div className="newsItem">
 				<a href={this.props.info.link} target="_blank">
 					<h2>
-            {this.props.info.title} <span className="itemInfo"> - {fmtDate}</span>
+            {this.props.info.title}
 					</h2>
-				</a>
+        </a>
+        <span className="newsItemInfo"> {hosturl} – {fmtDate}</span>
 			</div>
 		);
 	}
@@ -54,10 +70,9 @@ var NewsReaderCount = React.createClass({
     this.setState(getStateFromNumberOfReaders());
   },
 	render: function() {
-    var suffix = this.state.numberOfReaders == 1 ? "READER" : "READERS";
 		return (
-      <div  className="readercount">
-        { this.state.numberOfReaders + ' ' + suffix }
+      <div id="readerCount">
+        { this.state.numberOfReaders + ' Online'}
       </div>
 		);
 	}
@@ -74,14 +89,23 @@ var NewsList = React.createClass({
     this.setState(getStateFromStorage());
   },
 	render: function() {
-    var makeList = function(x) {
-      return <li key={x.guid}><NewsItem info={x} /></li>
+    if (this.state.newsItems.length == 0) {
+      return (
+        <div id="emptyList">
+          <p>Just wait a little while for some news to come in.</p>
+          <p id="nogoodnews">No news is good news right?</p>
+        </div>
+      )
+    } else {
+      var makeList = function(x) {
+        return <li key={x.guid}><NewsItem info={x} /></li>
+      }
+  		return (
+  			<ul>
+  				{ this.state.newsItems.map(makeList) }
+  			</ul>
+  		);
     }
-		return (
-			<ul>
-				{ this.state.newsItems.map(makeList)}
-			</ul>
-		);
 	}
 });
 
@@ -100,7 +124,7 @@ var NewsClock = React.createClass({
     var formatttedTime = [theTime.getHours(), theTime.getMinutes(), theTime.getSeconds()]
                          .map(function(x) {return x < 10 ? '0' + x : x;}).slice(0,3).join(':');
     return (
-      <div className="clock">{formatttedTime}</div>
+      <div id="clock">{formatttedTime}</div>
     );
   }
 });
@@ -110,9 +134,8 @@ var NewsApp = React.createClass({
     return (
       <div>
         <div id="headerInfo">
-          <span id="title">NXWS</span>
-          <NewsClock />
           <NewsReaderCount />      
+          {/* <NewsClock /> */}
         </div>
         <div id="mainList">
           <NewsList />
