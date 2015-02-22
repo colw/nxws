@@ -93,16 +93,19 @@ var NewsList = React.createClass({
       return (
         <div id="emptyList">
           <p>Just wait a little while for some news to come in.</p>
-          <p id="nogoodnews">No news is good news right?</p>
+          <p id="nogoodnews">No news is good news, right?</p>
         </div>
       )
     } else {
       var makeList = function(x) {
         return <li key={x.guid}><NewsItem info={x} /></li>
       }
+      var filterForText = function(x) {
+        return x.title.toLowerCase().indexOf(this.props.filterText) != -1;
+      }
   		return (
   			<ul>
-  				{ this.state.newsItems.map(makeList) }
+  				{ this.state.newsItems.filter(filterForText, this).map(makeList) }
   			</ul>
   		);
     }
@@ -129,16 +132,45 @@ var NewsClock = React.createClass({
   }
 });
 
+var NewsSearchBar = React.createClass({
+  getInitialState: function() {
+    return {filterText: ''};
+  },
+  handleChange: function() {
+		this.props.onUserInput(
+			this.refs.filterTextInput.getDOMNode().value
+		);
+  },
+	render: function() {
+    return (
+      <div>
+	      <input 	className="form-control"
+    			ref="filterTextInput"
+    			value={this.props.filterText}
+    			type="search" onChange={this.handleChange}
+    			placeholder="Filter"/>
+      </div>
+		);
+	}
+});
+
 var NewsApp = React.createClass({
+  getInitialState: function() {
+    return {startTime: new Date(), filterText: ''};
+  },
+	handleUserInput: function (filterText) {
+		this.setState({filterText: filterText});
+	},
 	render: function() {
     return (
       <div>
         <div id="headerInfo">
-          <NewsReaderCount />      
+          <NewsSearchBar  onUserInput={this.handleUserInput} filterText={this.state.filterText} />      
+          <NewsReaderCount />  
           {/* <NewsClock /> */}
         </div>
         <div id="mainList">
-          <NewsList />
+          <NewsList filterText={this.state.filterText.toLowerCase()} />
         </div>        
       </div>
 		);
