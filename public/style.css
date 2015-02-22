@@ -1,0 +1,61 @@
+body {
+  font-family: 'Oxygen', sans-serif;
+}
+
+#emptyList {
+  text-align: center;
+}
+
+#nogoodnews {
+  margin: 2em;
+  color: gray;
+  font-size: small;
+}
+
+#headerInfo {
+  text-align: right;
+  font-family: 'Oxygen', sans-serif;
+}
+
+#readerCount {
+  display: inline;
+}
+
+#clock {
+  display: inline;
+  float: right;
+  font-family: monospace;
+}
+
+#mainList {
+  margin:0 auto;
+  max-width: 600px;
+}
+
+ul {
+/*  list-style: none*/
+}
+
+li div {
+  padding: 0 0 0 1em;
+}
+
+.newsItem {
+  margin: 0 0 1em 0;
+}
+
+.newsItem h2{
+  display: inline;
+  font-family: 'Oxygen', sans-serif;
+}
+
+.newsItemInfo {
+  padding-left: 0.5em;
+  font-size: 12px;
+}
+
+a {
+  color: black;
+  font-weight: normal;
+  text-decoration: none;
+}

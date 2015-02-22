@@ -36,10 +36,14 @@ function storeContentsOfFeed(err, x) {
   if (newItem.date > new Date()) newItem.date = new Date();  
   
   db_items.findOne({guid: newItem.guid}, function(e, d){
+    if (err) throw err;
     if (null == d) {
       console.log("(" + new Date() + ") inserting and sending: ", newItem.title);
-      db_items.insert(newItem);
-      io.emit('nxws items', JSON.stringify([newItem]));
+      db_items.insert(newItem, function(err, d) {
+        if (err) throw err;
+        io.emit('nxws items', JSON.stringify([d]));
+      });
+      
     }
   });
 }
@@ -59,9 +63,9 @@ http.listen(3000, function() {
 io.on('connection', function(socket) {
 	console.log("User connected", socket.id);
   emitNumberOfUsers(io.sockets.sockets.length);
+  socket.beginTime = new Date();
   
-  db_items.find({}, {sort: {date: -1}})
-          .on('success', createNewsEmitterForSocket(socket));
+  // sendNews(socket);
   
   socket.on('disconnect', function() {
   	console.log("User disconnected", socket.id);
@@ -70,6 +74,11 @@ io.on('connection', function(socket) {
 });
 
 /* Broadcasting */
+function sendNews(socket) {
+  db_items.find({}, {sort: {date: -1}})
+          .on('success', createNewsEmitterForSocket(socket));
+}
+
 function emitNumberOfUsers(num) {
   console.log('User count', io.sockets.sockets.length)
   io.emit('nxws readers', num);
