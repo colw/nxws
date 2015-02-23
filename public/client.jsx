@@ -101,7 +101,8 @@ var NewsList = React.createClass({
         return <li key={x.guid}><NewsItem info={x} /></li>
       }
       var filterForText = function(x) {
-        return x.title.toLowerCase().indexOf(this.props.filterText) != -1;
+        return x.title.toLowerCase().indexOf(this.props.filterText) != -1
+            || x.metalink.toLowerCase().indexOf(this.props.filterText) != -1;
       }
   		return (
   			<ul>
