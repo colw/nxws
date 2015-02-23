@@ -13,12 +13,14 @@ body {
 }
 
 #headerInfo {
+  display: inline;
+  float: right;
   text-align: right;
   font-family: 'Oxygen', sans-serif;
 }
 
 #readerCount {
-  display: inline;
+/*  display: inline;*/
 }
 
 #clock {
@@ -28,6 +30,8 @@ body {
 }
 
 #mainList {
+  float: left;
+  display: inline;
   margin:0 auto;
   max-width: 600px;
 }
