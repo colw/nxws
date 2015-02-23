@@ -119,6 +119,16 @@ var NewsItemCount = React.createClass({
 });
 
 var NewsList = React.createClass({
+  filterThroughTags: function(list, listOfTags) {
+    var tmp = list;
+    for(var i = 0; i < listOfTags.length; ++i) {
+      tmp = tmp.filter(function(x) {
+        return x.title.toLowerCase().indexOf(listOfTags[i]) != -1
+            || x.metatitle.toLowerCase().indexOf(listOfTags[i]) != -1;
+      });    
+    }
+    return tmp;
+  },  
 	render: function() {
     if (this.props.newsItems.length == 0) {
       return (
@@ -135,9 +145,11 @@ var NewsList = React.createClass({
         return x.title.toLowerCase().indexOf(this.props.filterText) != -1
             || x.metalink.toLowerCase().indexOf(this.props.filterText) != -1;
       }
-  		return (
+      var filterList = this.props.filterTags.concat(this.props.filterText);
+      return (
   			<ul>
-  				{ this.props.newsItems.filter(filterForText, this).map(makeList) }
+          { this.filterThroughTags(this.props.newsItems, filterList).map(makeList) }
+  				{ /*this.props.newsItems.filter(filterForText, this).map(makeList) */}
   			</ul>
   		);
     }
@@ -173,31 +185,48 @@ var NewsSearchBar = React.createClass({
 			this.refs.filterTextInput.getDOMNode().value
 		);
   },
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var filterText = this.refs.filterTextInput.getDOMNode().value;
+    this.props.onFilterSubmit(filterText);
+  },
 	render: function() {
     return (
       <div>
-	      <input 	className="form-control"
-    			ref="filterTextInput"
-    			value={this.props.filterText}
-    			type="search" onChange={this.handleChange}
-    			placeholder="Filter"/>
+        <form onSubmit={this.handleSubmit}>
+  	      <input 	className="form-control"
+      			ref="filterTextInput"
+      			value={this.props.filterText}
+      			type="search"
+            onChange={this.handleChange}
+      			placeholder="Filter By..."/>
+        </form>
       </div>
 		);
 	}
 });
 
-var NewsInfoItem = React.createClass({
-  render: function() {
-    return (
-      <div>
-      <p>{this.props.number}</p></div>
-    )
-  }
-})
+var NewsTagList = React.createClass({
+  handleClick: function(e) {
+      this.props.onTagClick(e.currentTarget.getAttribute('value'));
+  },
+  handleClick2: function(e) {
+    console.log('button', e.currentTarget.getAttribute('value'));
+    e.preventDefault();
+    this.props.onTagClick('egypt');
+  },
+	render: function() {
+    var that = this;
+    var makeList = function(x) {
+      return <li key={x}><button type="button" value={x} onClick={that.handleClick}>{x}</button></li>
+    }    
+    return ( <ul>{ this.props.filterTags.map(makeList)}</ul> );
+	}
+});
 
 var NewsApp = React.createClass({
   getInitialState: function() {
-    return {startTime: new Date(), filterText: '', newsItems: getStateFromStorage()};
+    return {startTime: new Date(), filterText: '', newsItems: getStateFromStorage(), filterTags: []};
   },
   componentDidMount: function() {
     storage.setChangeListener(this.onStorageChange);
@@ -208,17 +237,27 @@ var NewsApp = React.createClass({
 	handleUserInput: function (filterText) {
 		this.setState({filterText: filterText});
 	},
+  handleSubmit: function(filterText) {
+    var newTags = this.state.filterTags.concat(filterText.toLowerCase());
+		this.setState({filterText: '', filterTags: newTags});
+  },
+  handleTagClick: function(tagName) {
+    var newTags = this.state.filterTags.filter(function(x) {return x != tagName});
+    console.log('filterTags New', tagName, newTags);
+		this.setState({filterTags: newTags});
+  },
 	render: function() {
     return (
       <div id="mainContent">
         <div id="headerInfo">
-          <NewsSearchBar onUserInput={ this.handleUserInput } filterText={this.state.filterText } />      
           <NewsItemCount itemCount={ this.state.newsItems.length }/>
           <NewsTimeSpent timeSpent={ this.state.startTime }/>
-          <NewsReaderCount />  
+          <NewsReaderCount />
+          <NewsSearchBar onUserInput={ this.handleUserInput } filterText={this.state.filterText} onFilterSubmit={this.handleSubmit}/>      
+          <NewsTagList filterTags={ this.state.filterTags} onTagClick={this.handleTagClick}/>
         </div>
         <div id="mainList">
-          <NewsList newsItems={this.state.newsItems} filterText={this.state.filterText.toLowerCase()} />
+          <NewsList newsItems={this.state.newsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>
         </div>        
       </div>
 		);
