@@ -2,9 +2,7 @@ var socket = io();
 
 var storage = new ObservableThing([]);
 function getStateFromStorage() {
-  return {
-    newsItems: storage.get()
-  };
+  return storage.get()
 }
 
 var numberOfReaders = new ObservableThing(Number(0));
@@ -27,7 +25,6 @@ socket.on('nxws readers', function(msg) {
   console.log('Readers:', msg);
   numberOfReaders.set(Number(msg));
 });
-
 
 var NewsItem = React.createClass({
   getInitialState: function() {
@@ -70,26 +67,60 @@ var NewsReaderCount = React.createClass({
     this.setState(getStateFromNumberOfReaders());
   },
 	render: function() {
+    var numReaders = this.state.numberOfReaders;
 		return (
       <div id="readerCount">
-        { this.state.numberOfReaders + ' Online'}
+        with { numReaders + (numReaders == 1 ? ' Other' : ' Others') } 
+      </div>
+		);
+	}
+});
+
+var NewsTimeSpent = React.createClass({
+  getInitialState: function() {
+    return {curTime: new Date()}
+  },
+  componentDidMount: function() {
+    this.interval = setInterval(this.tick, 5000);
+  },
+  componentDidUnMount: function() {
+    clearInterval(this.interval)
+  },
+  tick: function() {
+    this.setState({curTime: new Date()});
+  },
+	render: function() {
+    var diff = this.state.curTime - this.props.timeSpent;
+    var duration = moment.duration(diff).minutes();
+		return (
+      <div id="timeSpent">
+        in { duration + (duration == 1 ? ' Minute' : ' Minutes') } 
+      </div>
+		);
+	}
+});
+
+var NewsItemCount = React.createClass({
+	render: function() {
+    var itemCount = this.props.itemCount;
+    var updateText = '';
+    console.log('itemCount', itemCount);
+    switch (itemCount) {
+      case 0: updateText = 'No News'; break;
+      case 1: updateText = '1 Update'; break;
+      default: updateText = itemCount + ' Updates'; break;
+    }
+		return (
+      <div id="itemCount">
+        { updateText }
       </div>
 		);
 	}
 });
 
 var NewsList = React.createClass({
-  getInitialState: function() {
-    return getStateFromStorage()
-  },
-  componentDidMount: function() {
-    storage.setChangeListener(this.onStorageChange);
-  },
-  onStorageChange: function() {
-    this.setState(getStateFromStorage());
-  },
 	render: function() {
-    if (this.state.newsItems.length == 0) {
+    if (this.props.newsItems.length == 0) {
       return (
         <div id="emptyList">
           <p>Just wait a little while for some news to come in.</p>
@@ -106,7 +137,7 @@ var NewsList = React.createClass({
       }
   		return (
   			<ul>
-  				{ this.state.newsItems.filter(filterForText, this).map(makeList) }
+  				{ this.props.newsItems.filter(filterForText, this).map(makeList) }
   			</ul>
   		);
     }
@@ -155,23 +186,39 @@ var NewsSearchBar = React.createClass({
 	}
 });
 
+var NewsInfoItem = React.createClass({
+  render: function() {
+    return (
+      <div>
+      <p>{this.props.number}</p></div>
+    )
+  }
+})
+
 var NewsApp = React.createClass({
   getInitialState: function() {
-    return {startTime: new Date(), filterText: ''};
+    return {startTime: new Date(), filterText: '', newsItems: getStateFromStorage()};
+  },
+  componentDidMount: function() {
+    storage.setChangeListener(this.onStorageChange);
+  },
+  onStorageChange: function() {
+    this.setState({newsItems: getStateFromStorage()});
   },
 	handleUserInput: function (filterText) {
 		this.setState({filterText: filterText});
 	},
 	render: function() {
     return (
-      <div>
+      <div id="mainContent">
         <div id="headerInfo">
-          <NewsSearchBar  onUserInput={this.handleUserInput} filterText={this.state.filterText} />      
+          <NewsSearchBar onUserInput={ this.handleUserInput } filterText={this.state.filterText } />      
+          <NewsItemCount itemCount={ this.state.newsItems.length }/>
+          <NewsTimeSpent timeSpent={ this.state.startTime }/>
           <NewsReaderCount />  
-          {/* <NewsClock /> */}
         </div>
         <div id="mainList">
-          <NewsList filterText={this.state.filterText.toLowerCase()} />
+          <NewsList newsItems={this.state.newsItems} filterText={this.state.filterText.toLowerCase()} />
         </div>        
       </div>
 		);
