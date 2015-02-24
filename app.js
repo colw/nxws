@@ -5,7 +5,9 @@ var feeds = require('./feeds.json').remote;
 var checkNewsInterval;
 
 var db = require('monk')('localhost/newsdb');
-var db_items = db.get('items');
+var db_items = db.get('rss_guids');
+
+var REFRESH_DELAY = 30000;
 
 function fetchFeeds() {
   // console.log('Fetching', feeds.length, 'feeds');
@@ -15,7 +17,7 @@ function fetchFeeds() {
 fetchFeeds();
 setInterval(function() {
   fetchFeeds();
-}, 10000);
+}, REFRESH_DELAY);
 
 /* Storage */
 function storeContentsOfFeed(err, x) {  
@@ -32,16 +34,16 @@ function storeContentsOfFeed(err, x) {
     link: x.link,
     metatitle: x.meta.title,
     metalink: x.meta.link
-  }
+  };
   if (newItem.date > new Date()) newItem.date = new Date();  
   
   db_items.findOne({guid: newItem.guid}, function(e, d){
     if (err) throw err;
-    if (null == d) {
+    if (null === d) {
       console.log("(" + new Date() + ") inserting and sending: ", newItem.title);
-      db_items.insert(newItem, function(err, d) {
+      db_items.insert({guid: newItem.guid}, function(err, d) {
         if (err) throw err;
-        io.emit('nxws items', JSON.stringify([d]));
+        io.emit('nxws items', JSON.stringify([newItem]));
       });
       
     }
@@ -82,7 +84,7 @@ function sendAllNews(socket) {
 }
 
 function emitNumberOfUsers(num) {
-  console.log('User count', io.sockets.sockets.length)
+  console.log('User count', io.sockets.sockets.length);
   io.emit('nxws readers', num);
 }
 
@@ -90,5 +92,5 @@ function createNewsEmitterForSocket(socket) {
   return function (docs) {
     console.log('Sending ' + docs.length + ' items to ' + socket.id);
     socket.emit('nxws items', JSON.stringify(docs));
-  }
+  };
 }
