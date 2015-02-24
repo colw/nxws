@@ -65,7 +65,9 @@ io.on('connection', function(socket) {
   emitNumberOfUsers(io.sockets.sockets.length);
   socket.beginTime = new Date();
   
-  // sendNews(socket);
+  socket.on('request news', function() {
+    sendAllNews(socket);
+  });
   
   socket.on('disconnect', function() {
   	console.log("User disconnected", socket.id);
@@ -74,7 +76,7 @@ io.on('connection', function(socket) {
 });
 
 /* Broadcasting */
-function sendNews(socket) {
+function sendAllNews(socket) {
   db_items.find({}, {sort: {date: -1}})
           .on('success', createNewsEmitterForSocket(socket));
 }
