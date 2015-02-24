@@ -30,7 +30,7 @@ var NewsItem = React.createClass({displayName: "NewsItem",
 
 var NewsReaderCount = React.createClass({displayName: "NewsReaderCount",
 	render: function() {
-    var numReaders = this.props.readerCount;
+    var numReaders = this.props.readerCount - 1;
 		return (
       React.createElement("div", {id: "readerCount"}, 
         "with ",  numReaders + (numReaders == 1 ? ' Other' : ' Others') 
