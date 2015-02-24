@@ -1,31 +1,3 @@
-var socket = io();
-
-var storage = new ObservableThing([]);
-function getStateFromStorage() {
-  return storage.get()
-}
-
-var numberOfReaders = new ObservableThing(Number(0));
-function getStateFromNumberOfReaders() {
-  return {
-    numberOfReaders: numberOfReaders.get()
-  };
-}
-
-socket.on('nxws items', function(msg) {
-	var newItem = JSON.parse(msg);
-  newItem.date = new Date(newItem.date);
-  if (newItem.constructor == Object) newItem = [newItem];
-  var currentNews = storage.get();
-  var totalNews = newItem.concat(currentNews)
-  storage.set(totalNews);
-});
-
-socket.on('nxws readers', function(msg) {
-  console.log('Readers:', msg);
-  numberOfReaders.set(Number(msg));
-});
-
 var NewsItem = React.createClass({
   getInitialState: function() {
     return { insertionTime: new Date() }
@@ -57,17 +29,8 @@ var NewsItem = React.createClass({
 });
 
 var NewsReaderCount = React.createClass({
-  getInitialState: function() {
-    return getStateFromNumberOfReaders();
-  },
-  componentDidMount: function() {
-    numberOfReaders.setChangeListener(this.onReaderChange);
-  },
-  onReaderChange: function() {
-    this.setState(getStateFromNumberOfReaders());
-  },
 	render: function() {
-    var numReaders = this.state.numberOfReaders;
+    var numReaders = this.props.readerCount;
 		return (
       <div id="readerCount">
         with { numReaders + (numReaders == 1 ? ' Other' : ' Others') } 
@@ -156,26 +119,6 @@ var NewsList = React.createClass({
 	}
 });
 
-var NewsClock = React.createClass({
-  getInitialState: function() {
-    return {theTime: new Date()}
-  },
-  componentDidMount: function() {
-    this.interval = setInterval(this.updateClock, 500);
-  },
-  updateClock: function() {
-    this.setState({theTime: new Date()});
-  },
-  render: function() {
-    var theTime = this.state.theTime;
-    var formatttedTime = [theTime.getHours(), theTime.getMinutes(), theTime.getSeconds()]
-                         .map(function(x) {return x < 10 ? '0' + x : x;}).slice(0,3).join(':');
-    return (
-      <div id="clock">{formatttedTime}</div>
-    );
-  }
-});
-
 var NewsSearchBar = React.createClass({
   getInitialState: function() {
     return {filterText: ''};
@@ -220,19 +163,29 @@ var NewsTagList = React.createClass({
     var makeList = function(x) {
       return <li key={x}><button type="button" value={x} onClick={that.handleClick}>{x}</button></li>
     }    
-    return ( <ul>{ this.props.filterTags.map(makeList)}</ul> );
+    return (
+      <ul id="tagList">{ this.props.filterTags.map(makeList) }</ul>
+    );
 	}
 });
 
 var NewsApp = React.createClass({
   getInitialState: function() {
-    return {startTime: new Date(), filterText: '', newsItems: getStateFromStorage(), filterTags: []};
+    return {
+            startTime: new Date(), filterText: '', filterTags: []
+          , newsItems: getStateFromNewsItems()
+          , numberOfReaders: getStateFromNumberOfReaders()
+    };
   },
   componentDidMount: function() {
-    storage.setChangeListener(this.onStorageChange);
+    newsItems.setChangeListener(this.onStorageChange);
+    numberOfReaders.setChangeListener(this.onReaderChange);
   },
   onStorageChange: function() {
-    this.setState({newsItems: getStateFromStorage()});
+    this.setState({newsItems: getStateFromNewsItems()});
+  },
+  onReaderChange: function() {
+    this.setState({numberOfReaders: getStateFromNumberOfReaders()});
   },
 	handleUserInput: function (filterText) {
 		this.setState({filterText: filterText});
@@ -252,13 +205,15 @@ var NewsApp = React.createClass({
         <div id="headerInfo">
           <NewsItemCount itemCount={ this.state.newsItems.length }/>
           <NewsTimeSpent timeSpent={ this.state.startTime }/>
-          <NewsReaderCount />
+          <NewsReaderCount readerCount={this.state.numberOfReaders}/>
           <NewsSearchBar onUserInput={ this.handleUserInput } filterText={this.state.filterText} onFilterSubmit={this.handleSubmit}/>      
           <NewsTagList filterTags={ this.state.filterTags} onTagClick={this.handleTagClick}/>
         </div>
+      <div>
         <div id="mainList">
           <NewsList newsItems={this.state.newsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>
         </div>        
+      </div>
       </div>
 		);
 	}

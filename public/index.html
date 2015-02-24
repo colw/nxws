@@ -1,23 +1,22 @@
 <!doctype html>
 <html>
   <head>
-    <title>nxws</title>
+    <title>NewsCow</title>
     
-  	<script src="socket.io.js"></script>
-    <script src="moment.min.js"></script>
-    
-  	<script src="react-0.12.2.js"></script>
-  	<script src="JSXTransformer-0.12.2.js"></script>
-  	<script type="text/jsx" src="ObservableThing.js"></script>
-    <script type="text/jsx" src="client.jsx"></script>
+  	<script type="text/javascript" src="socket.io.js"></script>
+    <script type="text/javascript" src="moment.min.js"></script>    
+  	<script type="text/javascript" src="observablething.js"></script>
+    <script type="text/javascript" src="client_model.js"></script>    
     
     <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="style.css" type="text/css" media="all">
-
   </head>
   <body>
   	<div class="container" id="maincontent">
       <div id="newslistr">Waiting for news...</div>
   	</div>
+    
+  	<script type="text/javascript" src="react-0.12.2.js"></script>    
+    <script type="text/javascript" src="client_view.js"></script>
   </body>
 </html>
