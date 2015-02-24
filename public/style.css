@@ -36,6 +36,11 @@ body {
   max-width: 600px;
 }
 
+#tagList {
+  list-style: none;
+}
+
+
 ul {
 /*  list-style: none*/
 }
@@ -56,6 +61,7 @@ li div {
 .newsItemInfo {
   padding-left: 0.5em;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 a {
