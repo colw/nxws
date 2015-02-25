@@ -201,7 +201,7 @@ var NewsApp = React.createClass({
   },
 	render: function() {
     return (
-      <div id="mainContent">
+      <div id="MainContent">
         <div id="headerInfo">
           <NewsItemCount itemCount={ this.state.newsItems.length }/>
           <NewsTimeSpent timeSpent={ this.state.startTime }/>
@@ -209,14 +209,12 @@ var NewsApp = React.createClass({
           <NewsSearchBar onUserInput={ this.handleUserInput } filterText={this.state.filterText} onFilterSubmit={this.handleSubmit}/>      
           <NewsTagList filterTags={ this.state.filterTags} onTagClick={this.handleTagClick}/>
         </div>
-      <div>
         <div id="mainList">
-          <NewsList newsItems={this.state.newsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>
-        </div>        
-      </div>
+            <NewsList newsItems={this.state.newsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>
+        </div>
       </div>
 		);
 	}
 });
 
-React.render(<NewsApp />, document.getElementById('newslistr'));
+React.render(<NewsApp />, document.getElementById('ReactMountPoint'));
