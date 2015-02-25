@@ -1,29 +1,22 @@
 # News Aggregator
 
-A simple aggregator that uses sockets to send news to the user.
+A simple news aggregator that uses sockets to communicate with the user.
 
-News feeds are fetched periodically and stored inside a MongoDB database.
-These are then sent to the client. A user count is also shared among the user sessions globally.
+News feeds are fetched periodically and if the date of the article is a recent one, send to the users.
+A user count is also shared among the user sessions globally.
 
-Facebook's React is used for client side rendering.
+Facebook's React is used to render in the browser.
 
 ## Usage
 
-You will need MongoDB and NPM installed.
+You will `node` and `npm` installed.
 
-Clone the repository and install the necessary dependencies:
+Clone the repository, install the necessary dependencies and run:
 
     git clone https://github.com/colw/nxws.git
     cd nxws
     npm install
-
-Then create a directory for the database and run MongoDB in the background:
-
-    mkdir data
-    mongod --fork --logpath ./mongodb.log --dbpath=./data --port 27017
-    
-Now run the app
-
     node app.js
+    
     
     
