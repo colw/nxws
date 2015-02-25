@@ -96,21 +96,24 @@ app.use(express.static(__dirname + '/public'));
 http.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 });
+var numberOfUsers = 0;
 
 /* Socket */
 io.on('connection', function(socket) {
 	console.log("User connected", socket.id);
   emitNumberOfUsers(io.sockets.sockets.length);
-  socket.beginTime = new Date();
+  numberOfUsers++;
   
   socket.on('disconnect', function() {
+    numberOfUsers--;
   	console.log("User disconnected", socket.id);
-    emitNumberOfUsers(io.sockets.sockets.length);
+    emitNumberOfUsers(numberOfUsers);
   });    
 });
 
 /* Broadcasting */
 function emitNumberOfUsers(num) {
   console.log('User count', io.sockets.sockets.length);
-  io.emit('nxws readers', num);
+  var numOtherUsers = num === 0 ? 0 : num - 1;
+  io.emit('nxws readers', numOtherUsers);
 }
