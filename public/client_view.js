@@ -137,7 +137,7 @@ var NewsSearchBar = React.createClass({displayName: "NewsSearchBar",
     return (
       React.createElement("div", null, 
         React.createElement("form", {onSubmit: this.handleSubmit}, 
-  	      React.createElement("input", {	className: "form-control", 
+  	      React.createElement("input", {id: "filterTextInput", 
       			ref: "filterTextInput", 
       			value: this.props.filterText, 
       			type: "search", 
@@ -161,7 +161,7 @@ var NewsTagList = React.createClass({displayName: "NewsTagList",
 	render: function() {
     var that = this;
     var makeList = function(x) {
-      return React.createElement("li", {key: x}, React.createElement("button", {type: "button", value: x, onClick: that.handleClick}, x))
+      return React.createElement("li", {key: x, className: "tagItem"}, React.createElement("button", {type: "button", value: x, onClick: that.handleClick}, x))
     }    
     return (
       React.createElement("ul", {id: "tagList"},  this.props.filterTags.map(makeList) )

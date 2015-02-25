@@ -137,7 +137,7 @@ var NewsSearchBar = React.createClass({
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-  	      <input 	className="form-control"
+  	      <input id="filterTextInput"
       			ref="filterTextInput"
       			value={this.props.filterText}
       			type="search"
@@ -161,7 +161,7 @@ var NewsTagList = React.createClass({
 	render: function() {
     var that = this;
     var makeList = function(x) {
-      return <li key={x}><button type="button" value={x} onClick={that.handleClick}>{x}</button></li>
+      return <li key={x} className="tagItem"><button type="button" value={x} onClick={that.handleClick}>{x}</button></li>
     }    
     return (
       <ul id="tagList">{ this.props.filterTags.map(makeList) }</ul>
