@@ -96,13 +96,14 @@ app.use(express.static(__dirname + '/public'));
 http.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 });
+
 var numberOfUsers = 0;
 
 /* Socket */
 io.on('connection', function(socket) {
-	console.log("User connected", socket.id);
-  emitNumberOfUsers(io.sockets.sockets.length);
   numberOfUsers++;
+	console.log("User connected", socket.id);
+  emitNumberOfUsers(numberOfUsers);
   
   socket.on('disconnect', function() {
     numberOfUsers--;
@@ -113,7 +114,7 @@ io.on('connection', function(socket) {
 
 /* Broadcasting */
 function emitNumberOfUsers(num) {
-  console.log('User count', io.sockets.sockets.length);
+  console.log('User count', num);
   var numOtherUsers = num === 0 ? 0 : num - 1;
   io.emit('nxws readers', numOtherUsers);
 }

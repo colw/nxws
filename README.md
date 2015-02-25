@@ -9,7 +9,7 @@ Facebook's React is used to render in the browser.
 
 ## Usage
 
-You will `node` and `npm` installed.
+You will need `node` and `npm` installed.
 
 Clone the repository, install the necessary dependencies and run:
 
