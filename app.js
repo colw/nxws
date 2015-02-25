@@ -4,50 +4,85 @@ var nxws = new fetchfeed();
 var feeds = require('./feeds.json').remote;
 var checkNewsInterval;
 
-var db = require('monk')('localhost/newsdb');
-var db_items = db.get('rss_guids');
-
 var REFRESH_DELAY = 30000;
 
 function fetchFeeds() {
   // console.log('Fetching', feeds.length, 'feeds');
-  nxws.fetchSourceFromStream(feeds, request, storeContentsOfFeed);
+  // console.log(mostRecentDateFromFeed);
+  nxws.fetchSourceFromStream(feeds, request, emitArticleIfNew);
 }
 
-fetchFeeds();
+nxws.fetchSourceFromStream(feeds, request, storeArticleDates);
+
 setInterval(function() {
   fetchFeeds();
 }, REFRESH_DELAY);
 
-/* Storage */
-function storeContentsOfFeed(err, x) {  
+var mostRecentDateFromFeed = {};
+var mostRecentDateRunning = {};
+
+function constructSmallArticle(article) {
+  var newItem = {
+    title: article.title,
+    author: article.author,
+    date: new Date(article.date),
+    guid: article.guid,
+    link: article.link,
+    metatitle: article.meta.title,
+    metalink: article.meta.link
+  };
+  
+  if (newItem.date > new Date())
+    newItem.date = new Date();
+
+  return newItem;
+}
+
+function storeArticleDates(err, article) {
   if (err) {
     console.error(err);
     return;
   }
   
-  var newItem = {
-    title: x.title,
-    author: x.author,
-    date: new Date(x.date),
-    guid: x.guid,
-    link: x.link,
-    metatitle: x.meta.title,
-    metalink: x.meta.link
-  };
-  if (newItem.date > new Date()) newItem.date = new Date();  
+  if (article.hasOwnProperty('end')) {
+    // console.log('end of of', article.end, mostRecentDateFromFeed[article.end]);
+    return;
+  }
   
-  db_items.findOne({guid: newItem.guid}, function(e, d){
-    if (err) throw err;
-    if (null === d) {
-      console.log("(" + new Date() + ") inserting and sending: ", newItem.title);
-      db_items.insert({guid: newItem.guid}, function(err, d) {
-        if (err) throw err;
-        io.emit('nxws items', JSON.stringify([newItem]));
-      });
-      
-    }
-  });
+  var articleDate = article.date;
+  if (mostRecentDateFromFeed[article.meta.title] == null ||
+      mostRecentDateFromFeed[article.meta.title] < articleDate) {
+    mostRecentDateFromFeed[article.meta.title] = articleDate;
+    mostRecentDateRunning[article.meta.title] = articleDate;
+  }
+}
+
+function emitArticleIfNew(err, article) {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  
+  if (article.hasOwnProperty('end')) {
+    // console.log('end of of', article.end, mostRecentDateFromFeed[article.end], mostRecentDateRunning[article.end]);
+    mostRecentDateFromFeed[article.end] = mostRecentDateRunning[article.end];
+    return;
+  }
+  
+  var lastArticleSentDate = mostRecentDateFromFeed[article.meta.title];
+  // console.log('lastArticleSentDate', article.meta.title, lastArticleSentDate);
+  if (article.date > lastArticleSentDate) {
+    console.log('Emitting:', article.meta.title, '-', article.title, '-', article.date);
+
+    var newItem = constructSmallArticle(article);
+    io.emit('nxws items', JSON.stringify([newItem]));
+
+    if (newItem.date > mostRecentDateRunning[newItem.metatitle])
+      mostRecentDateRunning[newItem.metatitle] = newItem.date;
+
+    // console.log('mostRecentDateRunning[newItem.metatitle]', mostRecentDateRunning[newItem.metatitle])
+  }
+  
 }
 
 /* Server */
@@ -68,10 +103,6 @@ io.on('connection', function(socket) {
   emitNumberOfUsers(io.sockets.sockets.length);
   socket.beginTime = new Date();
   
-  socket.on('request news', function() {
-    sendAllNews(socket);
-  });
-  
   socket.on('disconnect', function() {
   	console.log("User disconnected", socket.id);
     emitNumberOfUsers(io.sockets.sockets.length);
@@ -79,19 +110,7 @@ io.on('connection', function(socket) {
 });
 
 /* Broadcasting */
-function sendAllNews(socket) {
-  db_items.find({}, {sort: {date: -1}})
-          .on('success', createNewsEmitterForSocket(socket));
-}
-
 function emitNumberOfUsers(num) {
   console.log('User count', io.sockets.sockets.length);
   io.emit('nxws readers', num);
-}
-
-function createNewsEmitterForSocket(socket) {
-  return function (docs) {
-    console.log('Sending ' + docs.length + ' items to ' + socket.id);
-    socket.emit('nxws items', JSON.stringify(docs));
-  };
 }
