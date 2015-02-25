@@ -201,7 +201,7 @@ var NewsApp = React.createClass({displayName: "NewsApp",
   },
 	render: function() {
     return (
-      React.createElement("div", {id: "mainContent"}, 
+      React.createElement("div", {id: "MainContent"}, 
         React.createElement("div", {id: "headerInfo"}, 
           React.createElement(NewsItemCount, {itemCount:  this.state.newsItems.length}), 
           React.createElement(NewsTimeSpent, {timeSpent:  this.state.startTime}), 
@@ -209,14 +209,12 @@ var NewsApp = React.createClass({displayName: "NewsApp",
           React.createElement(NewsSearchBar, {onUserInput:  this.handleUserInput, filterText: this.state.filterText, onFilterSubmit: this.handleSubmit}), 
           React.createElement(NewsTagList, {filterTags:  this.state.filterTags, onTagClick: this.handleTagClick})
         ), 
-      React.createElement("div", null, 
         React.createElement("div", {id: "mainList"}, 
-          React.createElement(NewsList, {newsItems: this.state.newsItems, filterText: this.state.filterText.toLowerCase(), filterTags: this.state.filterTags})
+            React.createElement(NewsList, {newsItems: this.state.newsItems, filterText: this.state.filterText.toLowerCase(), filterTags: this.state.filterTags})
         )
-      )
       )
 		);
 	}
 });
 
-React.render(React.createElement(NewsApp, null), document.getElementById('newslistr'));
+React.render(React.createElement(NewsApp, null), document.getElementById('ReactMountPoint'));
