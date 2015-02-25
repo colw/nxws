@@ -9,15 +9,22 @@ function fetchFeed(x) {
 	.on('error', function(err) {
     that.callback(err);
 	})
-	.pipe(new FeedParser()).on('readable', function() {
+	.pipe(new FeedParser())
+  .on('meta', function() {
+    // console.log('meta', {date: this.meta.pubdate, title: this.meta.title});
+  })
+  .on('readable', function() {
 		var item;
 		while (item = this.read()) {
       that.callback(null, item);
 		}
-	}).on('end', function() {
+	})
+  .on('end', function() {
     // console.log('Completed', x);
-  }).on('error', function(err) {
-    console.error(err);
+    that.callback(null, {end: this.meta.title});
+  })
+  .on('error', function(err) {
+    that.callback(err);
   });
 }
 
