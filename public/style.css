@@ -10,6 +10,8 @@ div {
 /*  border: 1px solid red;*/
 }
 
+
+
 #MainContent {
   max-width: 900px;
   margin: 0 auto;
@@ -21,10 +23,18 @@ div {
   width: 80%;
 }
 
-
-#headerInfo {
+@media (min-width: 900px) {
+  #headerInfo {
     float: right;
     display: inline-block;
+  }
+}
+@media (max-width: 900px) {
+  #headerInfo {
+    width: 80%;
+    float: left;
+    display: block;
+  }
 }
 
 #nogoodnews {
