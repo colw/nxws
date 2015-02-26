@@ -19,6 +19,27 @@ var NewsItem = React.createClass({displayName: "NewsItem",
 	}
 });
 
+var NewsCow = React.createClass({displayName: "NewsCow",
+  mixins: [RandomHelpMixin],
+  getInitialState: function() {
+    var cowords = [
+        "Udderly brilliant"
+      , "News that mooves you"
+      , "Hoofin' along"      
+    ];
+    return {cow: './images/Guernsey_cow.png', cowords: cowords};
+  },  
+	render: function() {
+    var randElt = this.getRandomInteger(0, this.state.cowords.length);
+    var saying = this.state.cowords[randElt];
+		return (
+      React.createElement("div", {id: "cow"}, 
+        React.createElement("img", {src: this.state.cow, alt: "A black and white cow", title: saying})
+      )
+		);
+	}
+});
+
 var NewsReaderCount = React.createClass({displayName: "NewsReaderCount",
 	render: function() {
     var numReaders = this.props.readerCount;
@@ -225,6 +246,7 @@ var NewsApp = React.createClass({displayName: "NewsApp",
           React.createElement(NewsTimeSpent, {timeSpent:  this.state.startTime}), 
           React.createElement(NewsReaderCount, {readerCount: this.state.numberOfReaders}), 
           React.createElement(NewsSources, {sourceList: this.state.sourceList}), 
+          React.createElement(NewsCow, null), 
           React.createElement(NewsSearchBar, {onUserInput:  this.handleUserInput, filterText: this.state.filterText, onFilterSubmit: this.handleSubmit}), 
           React.createElement(NewsTagList, {filterTags:  this.state.filterTags, onTagClick: this.handleTagClick})
         ), 

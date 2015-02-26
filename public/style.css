@@ -43,11 +43,12 @@ div {
     display: inline-block;
   }
   .tagItem button {
-    width: 100%;
+    width: 95px;
     background: CornflowerBlue;
     color: #FFF;
     border: none;
     text-align: left;
+    margin-left: 5px;
   }
   #mainList {
     display: inline-block;
@@ -61,11 +62,12 @@ div {
     display: block;
   }
   .tagItem button {
-    width: 30%;
+    width: 95px;
     background: CornflowerBlue;
     color: #FFF;
     border: none;
     text-align: left;
+
   }
   #mainList {
     display: inline-block;
@@ -122,4 +124,9 @@ a {
   color: black;
   font-weight: normal;
   text-decoration: none;
+}
+
+#cow img {
+  padding: 20px 0 10px 0;
+  max-width: 100px;
 }

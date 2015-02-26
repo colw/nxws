@@ -19,6 +19,27 @@ var NewsItem = React.createClass({
 	}
 });
 
+var NewsCow = React.createClass({
+  mixins: [RandomHelpMixin],
+  getInitialState: function() {
+    var cowords = [
+        "Udderly brilliant"
+      , "News that mooves you"
+      , "Hoofin' along"      
+    ];
+    return {cow: './images/Guernsey_cow.png', cowords: cowords};
+  },  
+	render: function() {
+    var randElt = this.getRandomInteger(0, this.state.cowords.length);
+    var saying = this.state.cowords[randElt];
+		return (
+      <div id="cow">
+        <img src={this.state.cow} alt="A black and white cow" title={saying} />
+      </div>
+		);
+	}
+});
+
 var NewsReaderCount = React.createClass({
 	render: function() {
     var numReaders = this.props.readerCount;
@@ -225,6 +246,7 @@ var NewsApp = React.createClass({
           <NewsTimeSpent timeSpent={ this.state.startTime }/>
           <NewsReaderCount readerCount={this.state.numberOfReaders}/>
           <NewsSources sourceList={this.state.sourceList} />
+          <NewsCow />
           <NewsSearchBar onUserInput={ this.handleUserInput } filterText={this.state.filterText} onFilterSubmit={this.handleSubmit}/>      
           <NewsTagList filterTags={ this.state.filterTags} onTagClick={this.handleTagClick}/>
         </div>

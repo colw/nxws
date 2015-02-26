@@ -8,3 +8,9 @@ var FormatURLMixin = {
     return a.hostname.replace(/^www./, '');
   }
 };
+
+var RandomHelpMixin = {
+  getRandomInteger: function(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+}
