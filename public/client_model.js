@@ -20,6 +20,5 @@ socket.on('nxws items', function(msg) {
 });
 
 socket.on('nxws readers', function(msg) {
-  console.log('Readers:', msg);
   numberOfReaders.set(Number(msg));
 });
