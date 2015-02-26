@@ -1,5 +1,6 @@
 var ObservableThing = function(thing) {
   this.thing = thing;
+  this.onChangeListener = null;
 }
 
 ObservableThing.prototype.set = function(newValue) {
@@ -12,9 +13,11 @@ ObservableThing.prototype.get = function() {
 }
 
 ObservableThing.prototype.setChangeListener = function(listener) {
-  this.onChangeListener = listener; 
+  this.onChangeListener = listener;
 }
 
 ObservableThing.prototype.notify = function() {
-  this.onChangeListener();  
+  if (this.onChangeListener != null) {
+    this.onChangeListener();
+  }
 }

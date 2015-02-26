@@ -65,6 +65,20 @@ div {
   }
 }
 
+#sourceList ul {
+  list-style-position: outside;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: small;
+  color: gray;
+}
+
+#sourceList p {
+  padding: 0;
+  margin: 0;
+}
+
 #nogoodnews {
   margin: 2em;
   color: gray;

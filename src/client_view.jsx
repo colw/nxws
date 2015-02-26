@@ -1,14 +1,7 @@
 var NewsItem = React.createClass({
+  mixins: [FormatURLMixin],  
   getInitialState: function() {
     return { insertionTime: new Date() };
-  },  
-  getBaseURL: function(url) {
-    if (url.slice(0,4) != 'http') {
-      url = 'http://' + url;
-    }
-    var a = document.createElement('a');
-    a.href = url;
-    return a.hostname.replace(/^www./, '');
   },
 	render: function() {
     var hosturl = this.getBaseURL(this.props.info.metalink);
@@ -145,6 +138,32 @@ var NewsTagList = React.createClass({
 	}
 });
 
+var NewsSources = React.createClass({
+  mixins: [FormatURLMixin],
+  getInitialState: function() {
+    return {showSources: false}
+  },
+  handleClick: function() {
+    this.setState({ showSources: !this.state.showSources });
+  },
+	render: function() {
+    var that = this;
+    var makeList = function(x) {
+      return <li key={x} className="sourceItem">{that.getBaseURL(x)}</li>
+    }
+    var elt = null;
+    if (this.state.showSources) {
+      elt = <ul>{ this.props.sourceList.map(makeList) }</ul>
+    }
+    return (
+      <div id="sourceList" onClick={this.handleClick}>
+        <p>From {this.props.sourceList.length} Sources</p>
+        {elt}
+      </div>
+    );
+	}
+});
+
 var NewsApp = React.createClass({
   getInitialState: function() {
     return {
@@ -154,11 +173,13 @@ var NewsApp = React.createClass({
       , newsItems: getStateFromNewsItems()
       , filteredNewsItems: []
       , numberOfReaders: getStateFromNumberOfReaders()
+      , sourceList: getStateFromSourceList()
     };
   },
   componentDidMount: function() {
     newsItems.setChangeListener(this.onStorageChange);
     numberOfReaders.setChangeListener(this.onReaderChange);
+    sourceList.setChangeListener(this.onSourceListChange);
     this.setState({filteredNewsItems: this.state.newsItems.slice()});
   },
   onStorageChange: function() {
@@ -168,6 +189,9 @@ var NewsApp = React.createClass({
   },
   onReaderChange: function() {
     this.setState({numberOfReaders: getStateFromNumberOfReaders()});
+  },
+  onSourceListChange: function() {
+    this.setState({sourceList: getStateFromSourceList()});
   },
 	handleUserInput: function (filterText) {
     var newFilteredNewsList = this.filterThroughTags(this.state.newsItems, this.state.filterTags.concat(filterText));
@@ -200,11 +224,12 @@ var NewsApp = React.createClass({
           <NewsItemCount itemCount={ this.state.filteredNewsItems.length }/>
           <NewsTimeSpent timeSpent={ this.state.startTime }/>
           <NewsReaderCount readerCount={this.state.numberOfReaders}/>
+          <NewsSources sourceList={this.state.sourceList} />
           <NewsSearchBar onUserInput={ this.handleUserInput } filterText={this.state.filterText} onFilterSubmit={this.handleSubmit}/>      
           <NewsTagList filterTags={ this.state.filterTags} onTagClick={this.handleTagClick}/>
         </div>
         <div id="mainList">
-            <NewsList newsItems={this.state.filteredNewsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>
+          <NewsList newsItems={this.state.filteredNewsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>
         </div>
       </div>
 		);

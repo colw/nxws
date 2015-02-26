@@ -10,6 +10,12 @@ function getStateFromNumberOfReaders() {
   return numberOfReaders.get();
 }
 
+var sourceList = new ObservableThing([]);
+function getStateFromSourceList() {
+  var s = sourceList.get();
+  return sourceList.get();
+}
+
 socket.on('nxws items', function(msg) {
 	var newItem = JSON.parse(msg);
   newItem.date = new Date(newItem.date);
@@ -24,6 +30,6 @@ socket.on('nxws readers', function(msg) {
 });
 
 socket.on('nxws sources', function(jsonSources) {
-  var sourceList = JSON.parse(jsonSources);
-  console.log(sourceList);
+  var sources = JSON.parse(jsonSources);
+  sourceList.set(sources);
 });
