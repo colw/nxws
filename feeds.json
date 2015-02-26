@@ -1,19 +1,11 @@
 {
-	"remote":
-		[ "http://guardian.co.uk/au/rss"
-		, "http://daringfireball.net/feeds/main"
-		, "https://www.tbray.org/ongoing/ongoing.atom"
+	"remote": [
+      "http://feeds.reuters.com/Reuters/worldNews"
+    , "http://www.afp.com/en/feed"
+    , "http://hosted2.ap.org/atom/APDEFAULT/3d281c11a96b4ad082fe88aa0db04305"
     , "http://www.nytimes.com/services/xml/rss/nyt/InternationalHome.xml"
-  	, "http://www.newyorker.com/feed/news"
-  	, "http://rss.cnn.com/rss/edition.rss"
   	, "http://feeds.bbci.co.uk/news/world/rss.xml"
   	, "http://www.aljazeera.com/xml/rss/all.xml"
-  	, "http://www.smh.com.au/rssheadlines/world/article/rss.xml"
-  	, "http://gothamist.com/index.rdf"
-  	, "http://www.buzzfeed.com/community/justlaunched.xml"
-  	, "http://www.buzzfeed.com/index.xml"
-    , "http://www.huffingtonpost.com/feeds/news.xml"
-    , "http://feeds.theonion.com/theonion/daily"
-    , "http://mobile.reuters.com/reuters/rss/WOR.xml"
-		]
+    , "http://guardian.co.uk/au/rss"
+  ]
 }

@@ -32,6 +32,9 @@ function constructSmallArticle(article) {
     metalink: article.meta.link
   };
   
+  if (newItem.metalink == null)
+    newItem.metalink = newItem.link;
+  
   if (newItem.date > new Date())
     newItem.date = new Date();
 
