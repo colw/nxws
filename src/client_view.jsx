@@ -24,7 +24,7 @@ var NewsReaderCount = React.createClass({
     var numReaders = this.props.readerCount;
 		return (
       <div id="readerCount">
-        with { numReaders + (numReaders == 1 ? ' Other' : ' Others') } 
+        { 'With ' + numReaders + (numReaders == 1 ? ' Other' : ' Others') } 
       </div>
 		);
 	}
@@ -48,7 +48,7 @@ var NewsTimeSpent = React.createClass({
     var duration = moment.duration(diff).minutes();
 		return (
       <div id="timeSpent">
-        in { duration + (duration == 1 ? ' Minute' : ' Minutes') } 
+        { 'In ' + duration + (duration == 1 ? ' Minute' : ' Minutes') } 
       </div>
 		);
 	}

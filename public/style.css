@@ -49,6 +49,10 @@ div {
     border: none;
     text-align: left;
   }
+  #mainList {
+    display: inline-block;
+    width: 80%;
+  }
 }
 @media (max-width: 900px) {
   #headerInfo {
@@ -62,6 +66,10 @@ div {
     color: #FFF;
     border: none;
     text-align: left;
+  }
+  #mainList {
+    display: inline-block;
+    width: 95%;
   }
 }
 
