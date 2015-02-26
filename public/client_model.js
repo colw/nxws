@@ -2,7 +2,7 @@ var socket = io();
 
 var newsItems = new ObservableThing([]);
 function getStateFromNewsItems() {
-  return newsItems.get()
+  return newsItems.get();
 }
 
 var numberOfReaders = new ObservableThing(Number(0));
@@ -15,10 +15,15 @@ socket.on('nxws items', function(msg) {
   newItem.date = new Date(newItem.date);
   if (newItem.constructor == Object) newItem = [newItem];
   var currentNews = newsItems.get();
-  var totalNews = newItem.concat(currentNews)
+  var totalNews = newItem.concat(currentNews);
   newsItems.set(totalNews);
 });
 
 socket.on('nxws readers', function(msg) {
   numberOfReaders.set(Number(msg));
+});
+
+socket.on('nxws sources', function(jsonSources) {
+  var sourceList = JSON.parse(jsonSources);
+  console.log(sourceList);
 });

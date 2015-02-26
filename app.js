@@ -104,6 +104,7 @@ io.on('connection', function(socket) {
   numberOfUsers++;
 	console.log("User connected", socket.id);
   emitNumberOfUsers(numberOfUsers);
+  emitSourceList(feeds);
   
   socket.on('disconnect', function() {
     numberOfUsers--;
@@ -117,4 +118,8 @@ function emitNumberOfUsers(num) {
   console.log('User count', num);
   var numOtherUsers = num === 0 ? 0 : num - 1;
   io.emit('nxws readers', numOtherUsers);
+}
+
+function emitSourceList(feedList) {
+  io.emit('nxws sources', JSON.stringify(feedList));
 }
