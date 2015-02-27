@@ -215,7 +215,7 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     if (this.state.filterText.length > 0) {
       tags = tags.concat(this.state.filterText);
     }
-    var newFilteredNewsList = this.filterRecursive(newNewsList, tags);
+    var newFilteredNewsList = this.filterListWithTags(newNewsList, tags);
     this.setState({newsItems: newNewsList, filteredNewsItems: newFilteredNewsList}); //woop
   },
   onReaderChange: function() {
@@ -233,7 +233,7 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     if (filterText.length > 0) {
       tags = tags.concat(filterText);
     }
-    var newFilteredNewsList = this.filterRecursive(this.state.newsItems, tags);
+    var newFilteredNewsList = this.filterListWithTags(this.state.newsItems, tags);
     
 		this.setState({filterText: filterText, filteredNewsItems: newFilteredNewsList});
 	},
@@ -247,17 +247,16 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     if (this.state.filterText.length > 0)
       tags = tags.concat(this.state.filterText);
     
-    var newFilteredNewsList = this.filterRecursive(this.state.newsItems, tags);
+    var newFilteredNewsList = this.filterListWithTags(this.state.newsItems, tags);
     this.setState({filterTags: tags, filteredNewsItems: newFilteredNewsList});
   }, 
-  filterRecursive: function(list, tags) {
-    console.log('list, tags', list.length, tags);
+  filterListWithTags: function(list, tags) {
     if (list.length === 0) {
       return [];
     } else if (tags.length == 0) { /* move empty string check elsewhere */
       return list;      
     } else if (tags[0] === '-') {
-      return this.filterRecursive(list, tags.slice(1));
+      return this.filterListWithTags(list, tags.slice(1));
     } else { 
 
       var filterContains = function(curTag, x) {
@@ -279,15 +278,13 @@ var NewsApp = React.createClass({displayName: "NewsApp",
       var curTag = tags[0];
       var filteredList;      
       if (curTag[0] === '-') {
-        console.log('not contains');
         curTag = curTag.slice(1);
-        console.log('curTag', curTag);
         filteredList = list.filter(filterContainsNot(curTag));
       } else {
         filteredList = list.filter(filterContains(curTag));
       }
             
-      return this.filterRecursive(filteredList, tags.slice(1));
+      return this.filterListWithTags(filteredList, tags.slice(1));
     }
   },  
 	render: function() {
