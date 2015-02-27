@@ -33,6 +33,14 @@ div {
   list-style-image: none;
 }
 
+.tagInclude button {
+  background: CornflowerBlue;
+}
+
+.tagExclude button {
+  background: LightCoral;
+}
+
 .tagItem button:hover:before, .tagItem button:focus:before {
   content: "x ";
 }
@@ -44,7 +52,7 @@ div {
   }
   .tagItem button {
     width: 95px;
-    background: CornflowerBlue;
+/*    background: CornflowerBlue;*/
     color: #FFF;
     border: none;
     text-align: left;
@@ -63,11 +71,10 @@ div {
   }
   .tagItem button {
     width: 95px;
-    background: CornflowerBlue;
+/*    background: CornflowerBlue;*/
     color: #FFF;
     border: none;
     text-align: left;
-
   }
   #mainList {
     display: inline-block;
