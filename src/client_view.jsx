@@ -225,13 +225,16 @@ var NewsApp = React.createClass({
     this.setState({sourceList: getStateFromSourceList()});
   },
 	handleUserInput: function (filterText) {
-    if (filterText === '-') {
+    
+    var modFilterText = filterText.toLowerCase();
+    
+    if (modFilterText === '-') {
       this.setState({filterText: filterText});
       return;
     }
     var tags = this.state.filterTags;
-    if (filterText.length > 0) {
-      tags = tags.concat(filterText);
+    if (modFilterText.length > 0) {
+      tags = tags.concat(modFilterText);
     }
     var newFilteredNewsList = this.filterListWithTags(this.state.newsItems, tags);
     
