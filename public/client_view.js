@@ -1,11 +1,16 @@
 var NewsItem = React.createClass({displayName: "NewsItem",
-  mixins: [FormatURLMixin],  
+  mixins: [FormatURLMixin, SetIntervalMixin],
   getInitialState: function() {
-    return { insertionTime: new Date() };
+    return {formattedTimeSince: moment(this.props.info.fetchDate).fromNow()};
+  },
+  componentDidMount: function() {
+    this.setInterval(this.updateTime, 30000);
+  },
+  updateTime: function() {
+    this.setState({formattedTimeSince: moment(this.props.info.fetchDate).fromNow()});
   },
 	render: function() {
     var hosturl = this.getBaseURL(this.props.info.metalink);
-    var fmtDate = moment(this.state.insertionTime).fromNow();
 		return (
 			React.createElement("div", {className: "newsItem"}, 
 				React.createElement("a", {href: this.props.info.link, target: "_blank"}, 
@@ -13,7 +18,7 @@ var NewsItem = React.createClass({displayName: "NewsItem",
             this.props.info.title
 					)
         ), 
-        React.createElement("span", {className: "newsItemInfo"}, " ", hosturl, " – ", fmtDate)
+        React.createElement("span", {className: "newsItemInfo"}, " ", hosturl, " – ", this.state.formattedTimeSince)
 			)
 		);
 	}
@@ -58,7 +63,7 @@ var NewsTimeSpent = React.createClass({displayName: "NewsTimeSpent",
   componentDidMount: function() {
     this.interval = setInterval(this.tick, 5000);
   },
-  componentDidUnMount: function() {
+  componentWillUnMount: function() {
     clearInterval(this.interval)
   },
   tick: function() {

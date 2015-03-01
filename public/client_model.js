@@ -20,6 +20,7 @@ socket.on('nxws items', function(msg) {
 	var newItem = JSON.parse(msg);
   newItem.date = new Date(newItem.date);
   if (newItem.constructor == Object) newItem = [newItem];
+  newItem[0].fetchDate = new Date();  
   var currentNews = newsItems.get();
   var totalNews = newItem.concat(currentNews);
   newsItems.set(totalNews);
