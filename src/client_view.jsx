@@ -228,7 +228,7 @@ var NewsApp = React.createClass({
     
     var modFilterText = filterText.toLowerCase();
     
-    if (modFilterText === '-') {
+    if (modFilterText[0] === '-') {
       this.setState({filterText: filterText});
       return;
     }
@@ -240,9 +240,17 @@ var NewsApp = React.createClass({
     
 		this.setState({filterText: filterText, filteredNewsItems: newFilteredNewsList});
 	},
-  handleSubmit: function(filterText) {
-    var newTags = this.state.filterTags.concat(filterText.toLowerCase());
-		this.setState({filterText: '', filterTags: newTags});
+  handleSubmit: function(filterText) {    
+    if (filterText[0] !== '-') {    
+      var newTags = this.state.filterTags.concat(filterText.toLowerCase());
+      this.setState({filterText: '', filterTags: newTags});
+      return;
+    } else {
+      var newTags = this.state.filterTags.concat(filterText.toLowerCase());
+      var newFilteredNewsList = this.filterListWithTags(this.state.newsItems, newTags);
+      this.setState({filterText: '', filterTags: newTags, filteredNewsItems: newFilteredNewsList});
+      return;
+    }
   },
   handleTagClick: function(tagName) {
     var tags = this.state.filterTags.filter(function(x) {return x != tagName});
