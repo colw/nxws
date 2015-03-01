@@ -102,8 +102,8 @@ var NewsList = React.createClass({displayName: "NewsList",
     if (this.props.newsItems.length == 0) {
       return (
         React.createElement("div", {id: "emptyList"}, 
-          React.createElement("p", null, "Just wait a little while for some news to come in."), 
-          React.createElement("p", {id: "nogoodnews"}, "No news is good news, right?")
+          React.createElement("p", null, "Please wait for some news to be published. Won't be long."), 
+          React.createElement("p", {id: "nogoodnews"}, "No news is good moos, right?")
         )
       )
     } else {

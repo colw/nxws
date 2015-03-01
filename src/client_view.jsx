@@ -102,8 +102,8 @@ var NewsList = React.createClass({
     if (this.props.newsItems.length == 0) {
       return (
         <div id="emptyList">
-          <p>Just wait a little while for some news to come in.</p>
-          <p id="nogoodnews">No news is good news, right?</p>
+          <p>Please wait for some news to be published. Won't be long.</p>
+          <p id="nogoodnews">No news is good moos, right?</p>
         </div>
       )
     } else {
