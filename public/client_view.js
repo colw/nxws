@@ -105,7 +105,7 @@ var NewsList = React.createClass({displayName: "NewsList",
     if (this.props.newsItems.length == 0) {
       return (
         React.createElement("div", {id: "emptyList"}, 
-          React.createElement("p", null, "Please wait for some news to be published. Won`t be long."), 
+          React.createElement("p", null, "Please wait for some news to be published. Shanʼt be long."), 
           React.createElement("p", {id: "nogoodnews"}, "No news is good moos, right?")
         )
       )
@@ -184,7 +184,7 @@ var NewsSources = React.createClass({displayName: "NewsSources",
 	render: function() {
     var that = this;
     var makeList = function(x) {
-      return React.createElement("li", {key: x, className: "sourceItem"}, that.getBaseURL(x))
+      return React.createElement("li", {key: x, className: "sourceItem"}, x)
     }
     var elt = null;
     if (this.state.showSources) {
@@ -256,7 +256,9 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     this.setState({numberOfReaders: getStateFromNumberOfReaders()});
   },
   onSourceListChange: function() {
-    this.setState({sourceList: getStateFromSourceList()});
+    var s = getStateFromSourceList();
+    console.log('source change', s);
+    this.setState({sourceList: s});
   },
 	handleUserInput: function (filterText) {
     
@@ -296,14 +298,14 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     this.setState({filterTags: tags, filteredNewsItems: newFilteredNewsList});
   }, 
   filterListWithTags: function(list, tags) {
+    console.log("begin...", list, tags);
     if (list.length === 0) {
       return [];
-    } else if (tags.length == 0) { /* move empty string check elsewhere */
+    } else if (tags.length == 0) { 
       return list;      
-    } else if (tags[0] === '-') {
+    } else if (tags[0] === '-') { /* move empty string check elsewhere */
       return this.filterListWithTags(list, tags.slice(1));
     } else { 
-
       var filterContains = function(curTag, x) {
         return function(x) {
           return x.title.toLowerCase().indexOf(curTag) !== -1

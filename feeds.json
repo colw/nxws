@@ -1,10 +1,14 @@
 {
-	"remote": [
-      "http://feeds.reuters.com/Reuters/worldNews"
-    , "http://www.afp.com/en/feed"
-    , "http://hosted2.ap.org/atom/APDEFAULT/3d281c11a96b4ad082fe88aa0db04305"
-    , "http://www.nytimes.com/services/xml/rss/nyt/InternationalHome.xml"
-  	, "http://www.aljazeera.com/xml/rss/all.xml"
-    , "http://guardian.co.uk/au/rss"
-  ]
+	"remote": {
+      "Reuters": "http://feeds.reuters.com/Reuters/worldNews"
+    , "AFP": "http://www.afp.com/en/feed"
+    , "AP": "http://hosted2.ap.org/atom/APDEFAULT/3d281c11a96b4ad082fe88aa0db04305"
+    , "The NY Times": "http://www.nytimes.com/services/xml/rss/nyt/InternationalHome.xml"
+  	, "Aljazeera": "http://www.aljazeera.com/xml/rss/all.xml"
+    , "The Guardian": "http://guardian.co.uk/au/rss"
+    , "The Wash. Post": "http://feeds.washingtonpost.com/rss/world"
+    , "CityLab": "http://feeds.feedburner.com/TheAtlanticCities"
+    , "The New Yorker": "http://www.newyorker.com/feed/everything"
+    , "The Onion": "http://feeds.theonion.com/theonion/daily"
+  }
 }

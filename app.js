@@ -1,7 +1,10 @@
 var request = require('request');
 var fetchfeed = require('./fetchfeed.js');
 var nxws = new fetchfeed();
-var feeds = require('./feeds.json').remote;
+var feedDict = require('./feeds.json').remote;
+var feedNames = Object.keys(feedDict);
+var feeds = Object.keys(feedDict).map(function(x) {return feedDict[x]});
+
 var checkNewsInterval;
 
 var REFRESH_DELAY = 30000;
@@ -107,7 +110,7 @@ io.on('connection', function(socket) {
   numberOfUsers++;
 	console.log("User connected", socket.id);
   emitNumberOfUsers(numberOfUsers);
-  emitSourceList(feeds);
+  emitSourceList(feedNames);
   
   socket.on('disconnect', function() {
     numberOfUsers--;
