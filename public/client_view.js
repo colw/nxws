@@ -14,11 +14,11 @@ var NewsItem = React.createClass({displayName: "NewsItem",
 		return (
 			React.createElement("div", {className: "newsItem"}, 
 				React.createElement("a", {href: this.props.info.link, target: "_blank"}, 
-					React.createElement("h2", null, 
+					React.createElement("div", {className: "headTitle"}, 
             this.props.info.title
 					)
         ), 
-        React.createElement("span", {className: "newsItemInfo"}, " ", hosturl, " – ", this.state.formattedTimeSince)
+        React.createElement("div", {className: "subTitle"}, " – ", hosturl, ", ", this.state.formattedTimeSince)
 			)
 		);
 	}
@@ -47,10 +47,15 @@ var NewsCow = React.createClass({displayName: "NewsCow",
 
 var NewsReaderCount = React.createClass({displayName: "NewsReaderCount",
 	render: function() {
-    var numReaders = this.props.readerCount;
+    var text = '';
+    switch (this.props.readerCount) {
+      case 0: text = 'With No Others'; break;
+      case 1: text = 'With 1 Other'; break;
+      default: text = 'With ' + this.props.readerCount + ' Others'; break;
+    }    
 		return (
-      React.createElement("div", {id: "readerCount"}, 
-         'With ' + numReaders + (numReaders == 1 ? ' Other' : ' Others') 
+      React.createElement("span", {id: "readerCount"}, 
+        text 
       )
 		);
 	}
@@ -82,7 +87,7 @@ var NewsTimeSpent = React.createClass({displayName: "NewsTimeSpent",
 
 var NewsItemCount = React.createClass({displayName: "NewsItemCount",
 	render: function() {
-    var itemCount = this.props.itemCount;
+    var itemCount = this.props.itemcount;
     var updateText = '';
     switch (itemCount) {
       case 0: updateText = 'No News'; break;
@@ -90,9 +95,7 @@ var NewsItemCount = React.createClass({displayName: "NewsItemCount",
       default: updateText = itemCount + ' Updates'; break;
     }
 		return (
-      React.createElement("div", {id: "itemCount"}, 
-        updateText 
-      )
+      React.createElement("span", {id: "itemCount"}, updateText)
 		);
 	}
 });
@@ -102,7 +105,7 @@ var NewsList = React.createClass({displayName: "NewsList",
     if (this.props.newsItems.length == 0) {
       return (
         React.createElement("div", {id: "emptyList"}, 
-          React.createElement("p", null, "Please wait for some news to be published. Won't be long."), 
+          React.createElement("p", null, "Please wait for some news to be published. Won`t be long."), 
           React.createElement("p", {id: "nogoodnews"}, "No news is good moos, right?")
         )
       )
@@ -135,7 +138,7 @@ var NewsSearchBar = React.createClass({displayName: "NewsSearchBar",
   },
 	render: function() {
     return (
-      React.createElement("div", null, 
+      React.createElement("div", {id: "filterBox"}, 
         React.createElement("form", {onSubmit: this.handleSubmit}, 
   	      React.createElement("input", {id: "filterTextInput", 
       			ref: "filterTextInput", 
@@ -188,30 +191,56 @@ var NewsSources = React.createClass({displayName: "NewsSources",
       elt = React.createElement("ul", null,  this.props.sourceList.map(makeList) )
     }
     return (
-      React.createElement("div", {id: "sourceList", onClick: this.handleClick}, 
-        React.createElement("p", null, "From ", this.props.sourceList.length, " Sources"), 
+      React.createElement("span", {id: "sourceList", onClick: this.handleClick}, 
+        'from ' + this.props.sourceList.length + ' Sources', 
         elt
       )
     );
 	}
 });
+var NewsDuration = React.createClass({displayName: "NewsDuration",
+	render: function() {
+    var text = 'in ' + this.props.duration + ' Minutes';
+    return (
+      React.createElement("span", null, text)
+    );
+  }
+});
+
+
+var NewsInfo = React.createClass({displayName: "NewsInfo",
+	render: function() {
+    return (
+      React.createElement("div", {id: "newheader"}, 
+          React.createElement(NewsItemCount, {itemcount: this.props.itemcount}), 
+          React.createElement(NewsDuration, {duration: this.props.minutes}), 
+          React.createElement(NewsSources, {sourceList: this.props.sources})
+      )
+    );
+  }
+});
 
 var NewsApp = React.createClass({displayName: "NewsApp",
+  mixins: [SetIntervalMixin],
   getInitialState: function() {
     return {
-        startTime: new Date()
-      , filterText: ''
+        filterText: ''
       , filterTags: []
       , newsItems: getStateFromNewsItems()
       , filteredNewsItems: []
       , numberOfReaders: getStateFromNumberOfReaders()
       , sourceList: getStateFromSourceList()
+      , minutes: 0
     };
+  },
+  tick: function() {
+    this.setState({minutes: this.state.minutes + 1});
   },
   componentDidMount: function() {
     newsItems.setChangeListener(this.onStorageChange);
     numberOfReaders.setChangeListener(this.onReaderChange);
     sourceList.setChangeListener(this.onSourceListChange);
+    this.setInterval(this.tick, 60000);
     this.setState({filteredNewsItems: this.state.newsItems.slice()});
   },
   onStorageChange: function() {
@@ -307,10 +336,10 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     return (
       React.createElement("div", {id: "MainContent"}, 
         React.createElement("div", {id: "headerInfo"}, 
-          React.createElement(NewsItemCount, {itemCount:  this.state.filteredNewsItems.length}), 
-          React.createElement(NewsTimeSpent, {timeSpent:  this.state.startTime}), 
-          React.createElement(NewsReaderCount, {readerCount: this.state.numberOfReaders}), 
-          React.createElement(NewsSources, {sourceList: this.state.sourceList}), 
+          React.createElement(NewsInfo, {itemcount: this.state.filteredNewsItems.length, 
+                    minutes: this.state.minutes, 
+                    others: this.state.numberOfReaders, 
+                    sources: this.state.sourceList}), 
           React.createElement(NewsCow, null), 
           React.createElement(NewsSearchBar, {onUserInput:  this.handleUserInput, filterText: this.state.filterText, onFilterSubmit: this.handleSubmit}), 
           React.createElement(NewsTagList, {filterTags:  this.state.filterTags, onTagClick: this.handleTagClick})
