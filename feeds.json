@@ -4,7 +4,6 @@
     , "http://www.afp.com/en/feed"
     , "http://hosted2.ap.org/atom/APDEFAULT/3d281c11a96b4ad082fe88aa0db04305"
     , "http://www.nytimes.com/services/xml/rss/nyt/InternationalHome.xml"
-  	, "http://feeds.bbci.co.uk/news/world/rss.xml"
   	, "http://www.aljazeera.com/xml/rss/all.xml"
     , "http://guardian.co.uk/au/rss"
   ]
