@@ -7,17 +7,14 @@ var feeds = Object.keys(feedDict).map(function(x) {return feedDict[x]});
 
 var checkNewsInterval;
 
-var REFRESH_DELAY = 30000;
+var REFRESH_DELAY = 15000;
 
 function fetchFeeds() {
-  // console.log('Fetching', feeds.length, 'feeds');
-  // console.log(mostRecentDateFromFeed);
   nxws.fetchSourceFromStream(feeds, request, emitArticleIfNew);
 }
 
 nxws.fetchSourceFromStream(feeds, request, storeArticleDates);
-
-setInterval(function() {
+checkNewsInterval = setInterval(function() {
   fetchFeeds();
 }, REFRESH_DELAY);
 
@@ -51,7 +48,6 @@ function storeArticleDates(err, article) {
   }
   
   if (article.hasOwnProperty('end')) {
-    // console.log('end of of', article.end, mostRecentDateFromFeed[article.end]);
     return;
   }
   
@@ -70,13 +66,11 @@ function emitArticleIfNew(err, article) {
   }
   
   if (article.hasOwnProperty('end')) {
-    // console.log('end of of', article.end, mostRecentDateFromFeed[article.end], mostRecentDateRunning[article.end]);
     mostRecentDateFromFeed[article.end] = mostRecentDateRunning[article.end];
     return;
   }
   
   var lastArticleSentDate = mostRecentDateFromFeed[article.meta.title];
-  // console.log('lastArticleSentDate', article.meta.title, lastArticleSentDate);
   if (article.date > lastArticleSentDate) {
     console.log('Emitting:', article.meta.title, '-', article.title, '-', article.date);
 
@@ -86,7 +80,6 @@ function emitArticleIfNew(err, article) {
     if (newItem.date > mostRecentDateRunning[newItem.metatitle])
       mostRecentDateRunning[newItem.metatitle] = newItem.date;
 
-    // console.log('mostRecentDateRunning[newItem.metatitle]', mostRecentDateRunning[newItem.metatitle])
   }
   
 }
