@@ -1,0 +1,368 @@
+$font-stack: 'Oxygen', Open-Sans, Sans;
+$font-size-desktop: large;
+$font-size-mobile: xx-large;
+$primary-color: #333;
+
+$tag-color-include: white;
+$tag-color-exclude: white;
+$tag-bg-include: cornFlowerBlue;
+$tag-bg-exclude: lightCoral;
+
+$desktop: "(min-width: 1024px)";
+$smalldesktop: "(max-width: 1023px)";
+$retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
+
+body {
+  font-family: $font-stack;
+  color: $primary-color;
+}
+
+#emptyList {
+  text-align: center;
+}
+
+#nogoodnews {
+  margin: 2em;
+  color: gray;
+  font-size: smaller;
+}
+
+@media #{$desktop} {
+  
+  body {
+    font-size: $font-size-desktop;
+  }
+  
+  #MainContent {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1em;
+  }
+
+  #mainList {
+    
+    display: inline-block;
+    width: 75%;
+    
+    ul {
+      list-style-type: circle;
+      list-style-position: outside;
+      list-style-image: none;
+      
+      .newsItem {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        text-align: left;
+        
+        a {
+          text-decoration: none;
+        }
+        
+        .headTitle {
+          color: $primary-color;
+          font-size: larger;
+        }
+        
+        .subTitle {
+          color: #333;
+          margin-top: 0.5em;
+          margin-left: 1em;
+          text-align: left;
+          font-size: small;
+        }
+      }
+      
+    }
+  }
+  
+  #headerInfo {
+    float: right;
+    
+    font-size: large;
+    p {
+      margin: 0;
+    }
+    
+    #newheader {
+      span {
+        display: block;
+      }
+    }
+  
+    #cow {
+      display: block;      
+      img {
+        padding: 20px 0 10px 0;
+        max-width: 100px;
+      }
+    }
+  
+    #filterBox {
+      margin-top: 0.5em;
+    }
+    
+    #filterTextInput {
+      width: 100px;
+    }
+    
+    #sourceList  {
+      ul {
+        list-style-position: outside;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        font-size: small;
+        color: gray;
+      }
+    }
+
+    #tagList {
+      margin-top: 0.5em;
+      padding: 0;
+    
+      li {
+        display: block;
+        margin-left: 3px;
+        margin-right: 3px;
+        list-style-type: none;
+        list-style-position: outside;
+        list-style-image: none;
+      }
+    
+      .tagItem button {
+        border: none;
+      }
+      
+      .tagItem button:hover:before, .tagItem button:focus:before {
+        content: "x ";
+      }
+      
+      .tagInclude button {
+        color: $tag-color-include;
+        background: $tag-bg-include;
+      }
+
+      .tagExclude button {
+        color: $tag-color-exclude;
+        background: $tag-bg-exclude;
+      }
+    
+    } 
+
+  }
+}
+
+@media #{$smalldesktop} {
+  
+  body {
+    font-size: $font-size-desktop;
+  }
+  
+  #MainContent {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1em;
+  }
+
+  #mainList {
+    
+    display: inline-block;
+    width: 95%;
+    
+    ul {
+      list-style-type: none;
+      list-style-position: outside;
+      list-style-image: none;
+      
+      .newsItem {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        text-align: left;
+        
+        a {
+          text-decoration: none;
+        }
+        
+        .headTitle {
+          color: $primary-color;
+          font-size: larger;
+        }
+        
+        .subTitle {
+          color: #333;
+          margin-top: 0.5em;
+          margin-left: 1em;
+          text-align: left;
+          font-size: small;
+        }
+      }
+      
+    }
+  }
+  
+  #headerInfo {
+    
+    font-size: large;
+    p {
+      margin: 0;
+    }
+    
+    #newheader {
+      span {
+        display: inline;
+        margin-left: 5px;
+      }
+    }
+      
+    #cow {
+      display: block;      
+      img {
+        padding: 20px 0 10px 0;
+        max-width: 100px;
+      }
+    }
+  
+    #filterBox {
+      margin-top: 0.5em;
+    }
+    
+    #filterTextInput {
+      width: 100px;
+    }
+    
+    #sourceList  {
+      ul {
+        list-style-position: outside;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        font-size: small;
+        color: gray;
+      }
+    }
+
+    #tagList {
+      margin-top: 0.5em;
+      padding: 0;
+    
+      li {
+        display: inline-block;
+        margin-left: 3px;
+        margin-right: 3px;
+      }
+    
+      .tagItem button {
+        border: none;
+      }
+      
+      .tagInclude button {
+        color: $tag-color-include;
+        background: $tag-bg-include;
+      }
+
+      .tagExclude button {
+        color: $tag-color-exclude;
+        background: $tag-bg-exclude;
+      }
+    
+    } 
+
+  }
+}
+
+@media #{$retina} {
+  
+  body {
+    font-size: $font-size-mobile;
+  }
+    
+  #mainList {
+    ul {
+      list-style-type: none;
+      list-style-position: outside;
+      list-style-image: none;
+      
+      .newsItem {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        text-align: left;
+        
+        a {
+          text-decoration: none;
+        }
+        
+        .headTitle {
+          color: $primary-color;
+          font-size: 48px;
+        }
+        
+        .subTitle {
+          color: #333;
+          margin-left: 1em;
+          text-align: left;
+          font-size: smaller;
+        }
+      }
+      
+    }
+  }
+  
+  #headerInfo {
+    font-size: larger;
+    p {
+      margin: 0;
+    }
+  
+    #newheader {
+      span {
+        margin-left: 5px;
+      }
+    }
+  
+    #cow {
+      display: none;
+    }
+  
+    #filterBox {
+      margin-top: 0.5em;
+    }
+    
+    #filterTextInput {
+      width: 200px;
+      font-size: 24px;
+    }
+  
+    #tagList {
+      font-size: 24px;
+      margin-top: 0.5em;
+      padding: 0;
+    
+      li {
+        display: inline-block;
+        margin-left: 3px;
+        margin-right: 3px;
+        list-style-type: none;
+        list-style-position: outside;
+        list-style-image: none;
+      }
+    
+      .tagItem button {
+        font-size: 24px;
+        
+        border: none;
+      }
+      
+      .tagInclude button {
+        color: $tag-color-include;
+        background: $tag-bg-include;
+      }
+
+      .tagExclude button {
+        color: $tag-color-exclude;
+        background: $tag-bg-exclude;
+      }
+    
+    } 
+
+  }
+}

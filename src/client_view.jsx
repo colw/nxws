@@ -14,11 +14,11 @@ var NewsItem = React.createClass({
 		return (
 			<div className="newsItem">
 				<a href={this.props.info.link} target="_blank">
-					<h2>
+					<div className="headTitle">
             {this.props.info.title}
-					</h2>
+					</div>
         </a>
-        <span className="newsItemInfo"> {hosturl} – {this.state.formattedTimeSince}</span>
+        <div className="subTitle"> – {hosturl}, {this.state.formattedTimeSince}</div>
 			</div>
 		);
 	}
@@ -47,11 +47,16 @@ var NewsCow = React.createClass({
 
 var NewsReaderCount = React.createClass({
 	render: function() {
-    var numReaders = this.props.readerCount;
+    var text = '';
+    switch (this.props.readerCount) {
+      case 0: text = 'With No Others'; break;
+      case 1: text = 'With 1 Other'; break;
+      default: text = 'With ' + this.props.readerCount + ' Others'; break;
+    }    
 		return (
-      <div id="readerCount">
-        { 'With ' + numReaders + (numReaders == 1 ? ' Other' : ' Others') } 
-      </div>
+      <span id="readerCount">
+        { text } 
+      </span>
 		);
 	}
 });
@@ -82,7 +87,7 @@ var NewsTimeSpent = React.createClass({
 
 var NewsItemCount = React.createClass({
 	render: function() {
-    var itemCount = this.props.itemCount;
+    var itemCount = this.props.itemcount;
     var updateText = '';
     switch (itemCount) {
       case 0: updateText = 'No News'; break;
@@ -90,9 +95,7 @@ var NewsItemCount = React.createClass({
       default: updateText = itemCount + ' Updates'; break;
     }
 		return (
-      <div id="itemCount">
-        { updateText }
-      </div>
+      <span id="itemCount">{updateText}</span>
 		);
 	}
 });
@@ -102,7 +105,7 @@ var NewsList = React.createClass({
     if (this.props.newsItems.length == 0) {
       return (
         <div id="emptyList">
-          <p>Please wait for some news to be published. Won't be long.</p>
+          <p>Please wait for some news to be published. Won`t be long.</p>
           <p id="nogoodnews">No news is good moos, right?</p>
         </div>
       )
@@ -135,7 +138,7 @@ var NewsSearchBar = React.createClass({
   },
 	render: function() {
     return (
-      <div>
+      <div id="filterBox">
         <form onSubmit={this.handleSubmit}>
   	      <input id="filterTextInput"
       			ref="filterTextInput"
@@ -188,30 +191,56 @@ var NewsSources = React.createClass({
       elt = <ul>{ this.props.sourceList.map(makeList) }</ul>
     }
     return (
-      <div id="sourceList" onClick={this.handleClick}>
-        <p>From {this.props.sourceList.length} Sources</p>
+      <span id="sourceList" onClick={this.handleClick}>
+        {'from ' + this.props.sourceList.length + ' Sources' }
         {elt}
-      </div>
+      </span>
     );
 	}
 });
+var NewsDuration = React.createClass({
+	render: function() {
+    var text = 'in ' + this.props.duration + ' Minutes';
+    return (
+      <span>{text}</span>
+    );
+  }
+});
+
+
+var NewsInfo = React.createClass({
+	render: function() {
+    return (
+      <div id="newheader">
+          <NewsItemCount itemcount={this.props.itemcount}/>
+          <NewsDuration duration={this.props.minutes} />
+          <NewsSources sourceList={this.props.sources} />  
+      </div>
+    );
+  }
+});
 
 var NewsApp = React.createClass({
+  mixins: [SetIntervalMixin],
   getInitialState: function() {
     return {
-        startTime: new Date()
-      , filterText: ''
+        filterText: ''
       , filterTags: []
       , newsItems: getStateFromNewsItems()
       , filteredNewsItems: []
       , numberOfReaders: getStateFromNumberOfReaders()
       , sourceList: getStateFromSourceList()
+      , minutes: 0
     };
+  },
+  tick: function() {
+    this.setState({minutes: this.state.minutes + 1});
   },
   componentDidMount: function() {
     newsItems.setChangeListener(this.onStorageChange);
     numberOfReaders.setChangeListener(this.onReaderChange);
     sourceList.setChangeListener(this.onSourceListChange);
+    this.setInterval(this.tick, 60000);
     this.setState({filteredNewsItems: this.state.newsItems.slice()});
   },
   onStorageChange: function() {
@@ -307,10 +336,10 @@ var NewsApp = React.createClass({
     return (
       <div id="MainContent">
         <div id="headerInfo">
-          <NewsItemCount itemCount={ this.state.filteredNewsItems.length }/>
-          <NewsTimeSpent timeSpent={ this.state.startTime }/>
-          <NewsReaderCount readerCount={this.state.numberOfReaders}/>
-          <NewsSources sourceList={this.state.sourceList} />
+          <NewsInfo itemcount={this.state.filteredNewsItems.length}
+                    minutes={this.state.minutes}
+                    others={this.state.numberOfReaders}
+                    sources={this.state.sourceList} />
           <NewsCow />
           <NewsSearchBar onUserInput={ this.handleUserInput } filterText={this.state.filterText} onFilterSubmit={this.handleSubmit}/>      
           <NewsTagList filterTags={ this.state.filterTags} onTagClick={this.handleTagClick}/>
