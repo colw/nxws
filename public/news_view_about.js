@@ -49,7 +49,7 @@ var HowCow = React.createClass({displayName: "HowCow",
 
                 React.createElement("p", null, "This site is intended for grazers and not those who find" + ' ' +
                 "themselves in a hurry. It intentionally shows nothing when you" + ' ' +
-                "load it, and from then it will only show you news as it's" + ' ' +
+                "load it, and from then it will only show news as it's" + ' ' +
                 "published. It's about the present, at a speed you can work" + ' ' +
                 "with."), 
 
