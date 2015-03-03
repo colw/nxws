@@ -200,7 +200,8 @@ var NewsSources = React.createClass({
 });
 var NewsDuration = React.createClass({
 	render: function() {
-    var text = 'in ' + this.props.duration + ' Minutes';
+    var duration = this.props.duration;
+    var text = 'in ' + duration + (duration == 1 ? ' Minute' : ' Minutes');
     return (
       <span>{text}</span>
     );
