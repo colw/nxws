@@ -18,7 +18,7 @@ var NewsItem = React.createClass({displayName: "NewsItem",
             this.props.info.title
 					)
         ), 
-        React.createElement("div", {className: "subTitle"}, " – ", hosturl, ", ", this.state.formattedTimeSince)
+        React.createElement("div", {className: "subTitle"}, hosturl, ", ", React.createElement("span", {className: "subTime"}, this.state.formattedTimeSince))
 			)
 		);
 	}
@@ -29,7 +29,7 @@ var NewsList = React.createClass({displayName: "NewsList",
     if (this.props.newsItems.length == 0) {
       return (
         React.createElement("div", {id: "emptyList"}, 
-          React.createElement("p", null, "Please wait for some news to be published. Shanʼt be long."), 
+          React.createElement("p", null, "Please wait for some news to be published. Shan't be long."), 
           React.createElement("p", {id: "nogoodnews"}, "No news is good moos, right?")
         )
       )
@@ -57,6 +57,7 @@ var NewsApp = React.createClass({displayName: "NewsApp",
       , numberOfReaders: getStateFromNumberOfReaders()
       , sourceList: getStateFromSourceList()
       , minutes: 0
+      , showAbout: false
     };
   },
   tick: function() {
@@ -158,8 +159,13 @@ var NewsApp = React.createClass({displayName: "NewsApp",
             
       return this.filterListWithTags(filteredList, tags.slice(1));
     }
-  },  
+  },
+  onCowClick: function(e) {
+    console.log('click');
+    this.setState({showAbout: !this.state.showAbout});
+  },
 	render: function() {
+    var main = this.state.showAbout ? React.createElement(HowCow, null) : (React.createElement(NewsList, {newsItems: this.state.filteredNewsItems, filterText: this.state.filterText.toLowerCase(), filterTags: this.state.filterTags}))
     return (
       React.createElement("div", {id: "MainContent"}, 
         React.createElement("div", {id: "headerInfo"}, 
@@ -167,12 +173,12 @@ var NewsApp = React.createClass({displayName: "NewsApp",
                     minutes: this.state.minutes, 
                     others: this.state.numberOfReaders, 
                     sources: this.state.sourceList}), 
-          React.createElement(NewsCow, null), 
+          React.createElement(NewsCow, {onClickHandler: this.onCowClick}), 
           React.createElement(NewsSearchBar, {onUserInput:  this.handleUserInput, filterText: this.state.filterText, onFilterSubmit: this.handleSubmit}), 
           React.createElement(NewsTagList, {filterTags:  this.state.filterTags, onTagClick: this.handleTagClick})
         ), 
         React.createElement("div", {id: "mainList"}, 
-          React.createElement(NewsList, {newsItems: this.state.filteredNewsItems, filterText: this.state.filterText.toLowerCase(), filterTags: this.state.filterTags})
+                    main
         )
       )
 		);

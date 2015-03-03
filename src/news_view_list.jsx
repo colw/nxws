@@ -18,7 +18,7 @@ var NewsItem = React.createClass({
             {this.props.info.title}
 					</div>
         </a>
-        <div className="subTitle"> – {hosturl}, {this.state.formattedTimeSince}</div>
+        <div className="subTitle">{hosturl}, <span className="subTime">{this.state.formattedTimeSince}</span></div>
 			</div>
 		);
 	}
@@ -29,7 +29,7 @@ var NewsList = React.createClass({
     if (this.props.newsItems.length == 0) {
       return (
         <div id="emptyList">
-          <p>Please wait for some news to be published. Shanʼt be long.</p>
+          <p>Please wait for some news to be published. Shan't be long.</p>
           <p id="nogoodnews">No news is good moos, right?</p>
         </div>
       )
@@ -57,6 +57,7 @@ var NewsApp = React.createClass({
       , numberOfReaders: getStateFromNumberOfReaders()
       , sourceList: getStateFromSourceList()
       , minutes: 0
+      , showAbout: false
     };
   },
   tick: function() {
@@ -158,8 +159,13 @@ var NewsApp = React.createClass({
             
       return this.filterListWithTags(filteredList, tags.slice(1));
     }
-  },  
+  },
+  onCowClick: function(e) {
+    console.log('click');
+    this.setState({showAbout: !this.state.showAbout});
+  },
 	render: function() {
+    var main = this.state.showAbout ? <HowCow /> : (<NewsList newsItems={this.state.filteredNewsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>)
     return (
       <div id="MainContent">
         <div id="headerInfo">
@@ -167,12 +173,12 @@ var NewsApp = React.createClass({
                     minutes={this.state.minutes}
                     others={this.state.numberOfReaders}
                     sources={this.state.sourceList} />
-          <NewsCow />
+          <NewsCow onClickHandler={this.onCowClick}/>
           <NewsSearchBar onUserInput={ this.handleUserInput } filterText={this.state.filterText} onFilterSubmit={this.handleSubmit}/>      
           <NewsTagList filterTags={ this.state.filterTags} onTagClick={this.handleTagClick}/>
         </div>
         <div id="mainList">
-          <NewsList newsItems={this.state.filteredNewsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>
+                    {main}
         </div>
       </div>
 		);

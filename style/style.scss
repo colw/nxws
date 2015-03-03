@@ -1,7 +1,11 @@
-$font-stack: 'Oxygen', Open-Sans, Sans;
+$font-stack: "Gill Sans MT", "Gill Sans", "Gill Sans Std", Verdana, "Bitstream Vera Sans";
+$subfont-stack: 'Bitstream Vera Sans';
 $font-size-desktop: large;
 $font-size-mobile: xx-large;
+
+$bgcolour: #FDFDFD;
 $primary-color: #333;
+$subtitle-color: #888;
 $nogoodnews: gray;
 
 $maxwidth: 900px;
@@ -16,6 +20,7 @@ $smalldesktop: "(max-width: 1023px)";
 $retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
 
 body {
+  background-color: $bgcolour;
   font-family: $font-stack;
   color: $primary-color;
 }
@@ -28,6 +33,10 @@ body {
   margin: 2em;
   color: $nogoodnews;
   font-size: smaller;
+}
+
+#headerInfo {
+  font-family: $font-stack;
 }
 
 @media #{$desktop}, #{$smalldesktop} {
@@ -66,11 +75,16 @@ body {
         }
         
         .subTitle {
-          color: #333;
-          margin-top: 0.5em;
-          margin-left: 1em;
+          font-family: $subfont-stack;
+          color: $subtitle-color;
+          margin-top: 0.2em;
+          margin-left: 2em;
           text-align: left;
           font-size: small;
+          content: "– ";
+        }
+        .subTitle:before {
+          content: "– ";
         }
       }
       
@@ -85,6 +99,7 @@ body {
     }
   
     #cow {
+      cursor: help;
       display: block;      
       img {
         padding: 20px 0 10px 0;
@@ -220,13 +235,18 @@ body {
         }
         
         .subTitle {
-          color: #333;
-          margin-left: 1em;
+          font-family: $subfont-stack;
+          color: $subtitle-color;
+          margin-top: 0.2em;
+          margin-left: 2em;
           text-align: left;
           font-size: smaller;
+          content: "– ";
         }
-      }
-      
+        .subTitle:before {
+          content: "– ";
+        }        
+      }      
     }
   }
   
@@ -242,6 +262,7 @@ body {
   
     #filterBox {
       margin-top: 0.5em;
+      margin-bottom: 0.5em;
     }
     
     #filterTextInput {

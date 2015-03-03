@@ -7,12 +7,15 @@ var NewsCow = React.createClass({displayName: "NewsCow",
       , "Hoofin' along"      
     ];
     return {cow: './images/Guernsey_cow.png', cowords: cowords};
-  },  
+  },
+  handleClick: function() {
+    this.props.onClickHandler();
+  },
 	render: function() {
     var randElt = this.getRandomInteger(0, this.state.cowords.length);
     var saying = this.state.cowords[randElt];
 		return (
-      React.createElement("div", {id: "cow"}, 
+      React.createElement("div", {id: "cow", onClick: this.props.onClickHandler}, 
         React.createElement("img", {src: this.state.cow, alt: "A black and white cow", title: saying})
       )
 		);
@@ -126,6 +129,7 @@ var NewsSources = React.createClass({displayName: "NewsSources",
     );
 	}
 });
+
 var NewsDuration = React.createClass({displayName: "NewsDuration",
 	render: function() {
     var duration = this.props.duration;
