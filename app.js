@@ -9,13 +9,13 @@ var checkNewsInterval;
 
 var REFRESH_DELAY = 15000;
 
-function fetchFeeds() {
-  nxws.fetchSourceFromStream(feeds, request, emitArticleIfNew);
+function fetchFeeds(callback) {
+  nxws.fetchSourceFromStream(feeds, request, callback);
 }
 
 nxws.fetchSourceFromStream(feeds, request, storeArticleDates);
 checkNewsInterval = setInterval(function() {
-  fetchFeeds();
+  fetchFeeds(emitArticleIfNew);
 }, REFRESH_DELAY);
 
 var mostRecentDateFromFeed = {};
@@ -84,6 +84,21 @@ function emitArticleIfNew(err, article) {
   
 }
 
+function emitArticle(socket) {
+  return function(err, article) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  
+    if (article.hasOwnProperty('end')) {
+      return;
+    }
+    var newItem = constructSmallArticle(article);
+    socket.emit('nxws items', JSON.stringify([newItem]));
+  } 
+}
+
 /* Server */
 var express = require('express');
 var app = express();
@@ -104,6 +119,11 @@ io.on('connection', function(socket) {
 	console.log("User connected", socket.id);
   emitNumberOfUsers(numberOfUsers);
   emitSourceList(feedNames);
+  
+  if (process.env.EMIT_NOW) {
+    console.log('emitting now');
+    fetchFeeds(emitArticle(socket));
+  }
   
   socket.on('disconnect', function() {
     numberOfUsers--;
