@@ -61,30 +61,6 @@ var NewsReaderCount = React.createClass({
 	}
 });
 
-var NewsTimeSpent = React.createClass({
-  getInitialState: function() {
-    return {curTime: new Date()}
-  },
-  componentDidMount: function() {
-    this.interval = setInterval(this.tick, 5000);
-  },
-  componentWillUnMount: function() {
-    clearInterval(this.interval)
-  },
-  tick: function() {
-    this.setState({curTime: new Date()});
-  },
-	render: function() {
-    var diff = this.state.curTime - this.props.timeSpent;
-    var duration = moment.duration(diff).minutes();
-		return (
-      <div id="timeSpent">
-        { 'In ' + duration + (duration == 1 ? ' Minute' : ' Minutes') } 
-      </div>
-		);
-	}
-});
-
 var NewsItemCount = React.createClass({
 	render: function() {
     var itemCount = this.props.itemcount;
@@ -207,7 +183,6 @@ var NewsDuration = React.createClass({
     );
   }
 });
-
 
 var NewsInfo = React.createClass({
 	render: function() {

@@ -61,30 +61,6 @@ var NewsReaderCount = React.createClass({displayName: "NewsReaderCount",
 	}
 });
 
-var NewsTimeSpent = React.createClass({displayName: "NewsTimeSpent",
-  getInitialState: function() {
-    return {curTime: new Date()}
-  },
-  componentDidMount: function() {
-    this.interval = setInterval(this.tick, 5000);
-  },
-  componentWillUnMount: function() {
-    clearInterval(this.interval)
-  },
-  tick: function() {
-    this.setState({curTime: new Date()});
-  },
-	render: function() {
-    var diff = this.state.curTime - this.props.timeSpent;
-    var duration = moment.duration(diff).minutes();
-		return (
-      React.createElement("div", {id: "timeSpent"}, 
-         'In ' + duration + (duration == 1 ? ' Minute' : ' Minutes') 
-      )
-		);
-	}
-});
-
 var NewsItemCount = React.createClass({displayName: "NewsItemCount",
 	render: function() {
     var itemCount = this.props.itemcount;
@@ -207,7 +183,6 @@ var NewsDuration = React.createClass({displayName: "NewsDuration",
     );
   }
 });
-
 
 var NewsInfo = React.createClass({displayName: "NewsInfo",
 	render: function() {
