@@ -10,7 +10,7 @@ body {
   color: gray;
   font-size: smaller; }
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px), (max-width: 1023px) {
   body {
     font-size: large; }
   #MainContent {
@@ -40,12 +40,9 @@ body {
           text-align: left;
           font-size: small; }
   #headerInfo {
-    float: right;
     font-size: large; }
     #headerInfo p {
       margin: 0; }
-    #headerInfo #newheader span {
-      display: block; }
     #headerInfo #cow {
       display: block; }
       #headerInfo #cow img {
@@ -56,6 +53,7 @@ body {
     #headerInfo #filterTextInput {
       width: 100px; }
     #headerInfo #sourceList ul {
+      list-style-type: none;
       list-style-position: outside;
       list-style-type: none;
       padding: 0;
@@ -66,12 +64,8 @@ body {
       margin-top: 0.5em;
       padding: 0; }
       #headerInfo #tagList li {
-        display: block;
         margin-left: 3px;
-        margin-right: 3px;
-        list-style-type: none;
-        list-style-position: outside;
-        list-style-image: none; }
+        margin-right: 3px; }
       #headerInfo #tagList .tagItem button {
         border: none; }
       #headerInfo #tagList .tagItem button:hover:before, #headerInfo #tagList .tagItem button:focus:before {
@@ -83,73 +77,27 @@ body {
         color: white;
         background: lightCoral; } }
 
+@media (min-width: 1024px) {
+  #headerInfo {
+    float: right;
+    /*desktop*/ }
+    #headerInfo #newheader span {
+      display: block;
+      /*desktop*/ }
+    #headerInfo #tagList .tagItem button:hover:before, #headerInfo #tagList .tagItem button:focus:before {
+      content: "x "; }
+    #headerInfo #tagList li {
+      display: block; } }
+
 @media (max-width: 1023px) {
   body {
     font-size: large; }
-  #MainContent {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1em; }
   #mainList {
-    display: inline-block;
     width: 95%; }
     #mainList ul {
-      list-style-type: none;
-      list-style-position: outside;
-      list-style-image: none; }
-      #mainList ul .newsItem {
-        margin-top: 1em;
-        margin-bottom: 1em;
-        text-align: left; }
-        #mainList ul .newsItem a {
-          text-decoration: none; }
-        #mainList ul .newsItem .headTitle {
-          color: #333;
-          font-size: larger; }
-        #mainList ul .newsItem .subTitle {
-          color: #333;
-          margin-top: 0.5em;
-          margin-left: 1em;
-          text-align: left;
-          font-size: small; }
-  #headerInfo {
-    font-size: large; }
-    #headerInfo p {
-      margin: 0; }
-    #headerInfo #newheader span {
-      display: inline;
-      margin-left: 5px; }
-    #headerInfo #cow {
-      display: block; }
-      #headerInfo #cow img {
-        padding: 20px 0 10px 0;
-        max-width: 100px; }
-    #headerInfo #filterBox {
-      margin-top: 0.5em; }
-    #headerInfo #filterTextInput {
-      width: 100px; }
-    #headerInfo #sourceList ul {
-      list-style-position: outside;
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      font-size: small;
-      color: gray; }
-    #headerInfo #tagList {
-      margin-top: 0.5em;
-      padding: 0; }
-      #headerInfo #tagList li {
-        display: inline-block;
-        margin-left: 3px;
-        margin-right: 3px; }
-      #headerInfo #tagList .tagItem button {
-        border: none; }
-      #headerInfo #tagList .tagInclude button {
-        color: white;
-        background: cornFlowerBlue; }
-      #headerInfo #tagList .tagExclude button {
-        color: white;
-        background: lightCoral; } }
+      list-style-type: none; }
+  #headerInfo #tagList li {
+    display: inline-block; } }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   body {
@@ -176,8 +124,6 @@ body {
     font-size: larger; }
     #headerInfo p {
       margin: 0; }
-    #headerInfo #newheader span {
-      margin-left: 5px; }
     #headerInfo #cow {
       display: none; }
     #headerInfo #filterBox {

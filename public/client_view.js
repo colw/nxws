@@ -212,9 +212,7 @@ var NewsInfo = React.createClass({displayName: "NewsInfo",
 	render: function() {
     return (
       React.createElement("div", {id: "newheader"}, 
-          React.createElement(NewsItemCount, {itemcount: this.props.itemcount}), 
-          React.createElement(NewsDuration, {duration: this.props.minutes}), 
-          React.createElement(NewsSources, {sourceList: this.props.sources})
+          React.createElement(NewsItemCount, {itemcount: this.props.itemcount}), " ", React.createElement(NewsDuration, {duration: this.props.minutes}), " ", React.createElement(NewsSources, {sourceList: this.props.sources})
       )
     );
   }
