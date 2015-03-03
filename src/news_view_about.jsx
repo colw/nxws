@@ -27,19 +27,6 @@ var HowCow = React.createClass({
           
                 <p>Take your time, don't fret, the news won't stop. Even as you
                 read this.</p>
-
-                <h2 id="cowhow">How?</h2>
-                
-                <p>Technically speaking, there is a <a
-                href="http://www.nodejs.org">Node.js</a> backend on the look
-                out for news. When it finds some, it will send it straight to
-                your browser using <a href="http://socket.io">Socket.io</a>.
-                The whole rendering experience is based upon <a
-                href="http://facebook.github.io/react">React</a>.</p>
-        
-                <p>That's about enough tech speak for here. Read the <a
-                href="http://github.com/colw/nxws" target="_blank">code</a> if
-                you're curious.</p>
                 
                 <h2 id="cowwhy">Why?</h2>
                 
@@ -56,6 +43,19 @@ var HowCow = React.createClass({
                 <p>You can't set the source of the news, but you can curate
                 with broad, simple strokes. Searching is fast and efficient
                 too.</p>
+
+                <h2 id="cowhow">How?</h2>
+                
+                <p>Technically speaking, there is a <a
+                href="http://www.nodejs.org">Node.js</a> backend on the look
+                out for news. When it finds some, it will send it straight to
+                your browser using <a href="http://socket.io">Socket.io</a>.
+                The whole rendering experience is based upon <a
+                href="http://facebook.github.io/react">React</a>.</p>
+        
+                <p>That's about enough tech speak for here. Read the <a
+                href="http://github.com/colw/nxws" target="_blank">code</a> if
+                you're curious.</p>
 
             </div>
 		);

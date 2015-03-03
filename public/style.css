@@ -15,7 +15,7 @@ body {
 #headerInfo {
   font-family: "Gill Sans MT", "Gill Sans", "Gill Sans Std", Verdana, "Bitstream Vera Sans"; }
 
-@media (min-width: 1024px), (max-width: 1023px) {
+@media only screen and (min-width: 1024px), only screen and (max-width: 1023px) {
   body {
     font-size: large; }
   #MainContent {
@@ -87,7 +87,7 @@ body {
         color: white;
         background: lightCoral; } }
 
-@media (min-width: 1024px) {
+@media only screen and (min-width: 1024px) {
   #headerInfo {
     float: right;
     /*desktop*/ }
@@ -99,7 +99,7 @@ body {
     #headerInfo #tagList li {
       display: block; } }
 
-@media (max-width: 1023px) {
+@media only screen and (max-width: 1023px) {
   body {
     font-size: large; }
   #mainList {
@@ -109,7 +109,7 @@ body {
   #headerInfo #tagList li {
     display: inline-block; } }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media only screen and (max-device-width: 480px) {
   body {
     font-size: xx-large; }
   #mainList ul {

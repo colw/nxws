@@ -15,9 +15,10 @@ $tag-color-exclude: white;
 $tag-bg-include: cornFlowerBlue;
 $tag-bg-exclude: lightCoral;
 
-$desktop: "(min-width: 1024px)";
-$smalldesktop: "(max-width: 1023px)";
-$retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
+$normal: "only screen and (min-width: 1024px)";
+$smallerwindow: "only screen and (max-width: 1023px)";
+$tinywindow: "only screen and (max-device-width: 480px)";
+$retina: "only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
 
 body {
   background-color: $bgcolour;
@@ -39,7 +40,7 @@ body {
   font-family: $font-stack;
 }
 
-@media #{$desktop}, #{$smalldesktop} {
+@media #{$normal}, #{$smallerwindow} {
   body {
     font-size: $font-size-desktop;
   }
@@ -160,7 +161,7 @@ body {
   
 }
 
-@media #{$desktop} {
+@media #{$normal} {
 
   #headerInfo {
     float: right; /*desktop*/
@@ -183,7 +184,7 @@ body {
   }
 }
 
-@media #{$smalldesktop} {
+@media #{$smallerwindow} {
   
   body {
     font-size: $font-size-desktop;
@@ -208,7 +209,7 @@ body {
   }
 }
 
-@media #{$retina} {
+@media #{$tinywindow} {
   
   body {
     font-size: $font-size-mobile;

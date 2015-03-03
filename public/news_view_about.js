@@ -27,19 +27,6 @@ var HowCow = React.createClass({displayName: "HowCow",
           
                 React.createElement("p", null, "Take your time, don't fret, the news won't stop. Even as you" + ' ' +
                 "read this."), 
-
-                React.createElement("h2", {id: "cowhow"}, "How?"), 
-                
-                React.createElement("p", null, "Technically speaking, there is a ", React.createElement("a", {
-                href: "http://www.nodejs.org"}, "Node.js"), " backend on the look" + ' ' +
-                "out for news. When it finds some, it will send it straight to" + ' ' +
-                "your browser using ", React.createElement("a", {href: "http://socket.io"}, "Socket.io"), "." + ' ' +
-                "The whole rendering experience is based upon ", React.createElement("a", {
-                href: "http://facebook.github.io/react"}, "React"), "."), 
-        
-                React.createElement("p", null, "That's about enough tech speak for here. Read the ", React.createElement("a", {
-                href: "http://github.com/colw/nxws", target: "_blank"}, "code"), " if" + ' ' +
-                "you're curious."), 
                 
                 React.createElement("h2", {id: "cowwhy"}, "Why?"), 
                 
@@ -55,7 +42,20 @@ var HowCow = React.createClass({displayName: "HowCow",
 
                 React.createElement("p", null, "You can't set the source of the news, but you can curate" + ' ' +
                 "with broad, simple strokes. Searching is fast and efficient" + ' ' +
-                "too.")
+                "too."), 
+
+                React.createElement("h2", {id: "cowhow"}, "How?"), 
+                
+                React.createElement("p", null, "Technically speaking, there is a ", React.createElement("a", {
+                href: "http://www.nodejs.org"}, "Node.js"), " backend on the look" + ' ' +
+                "out for news. When it finds some, it will send it straight to" + ' ' +
+                "your browser using ", React.createElement("a", {href: "http://socket.io"}, "Socket.io"), "." + ' ' +
+                "The whole rendering experience is based upon ", React.createElement("a", {
+                href: "http://facebook.github.io/react"}, "React"), "."), 
+        
+                React.createElement("p", null, "That's about enough tech speak for here. Read the ", React.createElement("a", {
+                href: "http://github.com/colw/nxws", target: "_blank"}, "code"), " if" + ' ' +
+                "you're curious.")
 
             )
 		);
