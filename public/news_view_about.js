@@ -46,12 +46,12 @@ var HowCow = React.createClass({displayName: "HowCow",
 
                 React.createElement("h2", {id: "cowhow"}, "How?"), 
                 
-                React.createElement("p", null, "Technically speaking, there is a ", React.createElement("a", {
-                href: "http://www.nodejs.org"}, "Node.js"), " backend on the look" + ' ' +
-                "out for news. When it finds some, it will send it straight to" + ' ' +
-                "your browser using ", React.createElement("a", {href: "http://socket.io"}, "Socket.io"), "." + ' ' +
-                "The whole rendering experience is based upon ", React.createElement("a", {
-                href: "http://facebook.github.io/react"}, "React"), "."), 
+                React.createElement("p", null, "Technically speaking, there is a ", React.createElement("a", {href: "http://www.nodejs.org", target: "_blank"}, "Node.js"), " backend on the look out for news. When it finds some, it will" + ' ' +
+                "send it straight to your browser using ", React.createElement("a", {
+                href: "http://socket.io", target: "_blank"}, "Socket.io"), ". The" + ' ' +
+                "whole rendering experience is based upon ", React.createElement("a", {
+                href: "http://facebook.github.io/react", 
+                target: "_blank"}, "React"), "."), 
         
                 React.createElement("p", null, "That's about enough tech speak for here. Read the ", React.createElement("a", {
                 href: "http://github.com/colw/nxws", target: "_blank"}, "code"), " if" + ' ' +

@@ -46,12 +46,12 @@ var HowCow = React.createClass({
 
                 <h2 id="cowhow">How?</h2>
                 
-                <p>Technically speaking, there is a <a
-                href="http://www.nodejs.org">Node.js</a> backend on the look
-                out for news. When it finds some, it will send it straight to
-                your browser using <a href="http://socket.io">Socket.io</a>.
-                The whole rendering experience is based upon <a
-                href="http://facebook.github.io/react">React</a>.</p>
+                <p>Technically speaking, there is a <a href="http://www.nodejs.org" target="_blank">Node.js</a> backend on the look out for news. When it finds some, it will
+                send it straight to your browser using <a
+                href="http://socket.io" target="_blank">Socket.io</a>. The
+                whole rendering experience is based upon <a
+                href="http://facebook.github.io/react"
+                target="_blank">React</a>.</p>
         
                 <p>That's about enough tech speak for here. Read the <a
                 href="http://github.com/colw/nxws" target="_blank">code</a> if
