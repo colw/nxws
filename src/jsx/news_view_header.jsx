@@ -96,8 +96,12 @@ var NewsTagList = React.createClass({
         text = x.slice(1);
         className="tagItem tagExclude";
       }
-      return <li key={x} className={className}><button type="button" value={x} onClick={that.handleClick}>{text}</button></li>
-    }
+      return (
+        <li key={x} className={className}>
+          <button type="button" value={x} onClick={that.handleClick}>{text}</button>
+        </li>
+      );
+    };
     return (
       <ul id="tagList">{ this.props.filterTags.map(makeList) }</ul>
     );
@@ -107,7 +111,7 @@ var NewsTagList = React.createClass({
 var NewsSources = React.createClass({
   mixins: [FormatURLMixin],
   getInitialState: function() {
-    return {showSources: false}
+    return {showSources: false};
   },
   handleClick: function() {
     this.setState({ showSources: !this.state.showSources });
@@ -115,11 +119,11 @@ var NewsSources = React.createClass({
 	render: function() {
     var that = this;
     var makeList = function(x) {
-      return <li key={x} className="sourceItem">{x}</li>
-    }
+      return (<li key={x} className="sourceItem">{x}</li>);
+    };
     var elt = null;
     if (this.state.showSources) {
-      elt = <ul>{ this.props.sourceList.map(makeList) }</ul>
+      elt = (<ul>{ this.props.sourceList.map(makeList) }</ul>);
     }
     return (
       <span id="sourceList" onClick={this.handleClick}>

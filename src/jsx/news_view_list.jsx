@@ -26,17 +26,17 @@ var NewsItem = React.createClass({
 
 var NewsList = React.createClass({ 
 	render: function() {
-    if (this.props.newsItems.length == 0) {
+    if (this.props.newsItems.length === 0) {
       return (
         <div id="emptyList">
           <p>Please wait for some news to be published. Shan't be long.</p>
           <p id="nogoodnews">No news is good moos, right?</p>
         </div>
-      )
+      );
     } else {
       var makeList = function(x) {
-        return <li key={x.guid}><NewsItem info={x} /></li>
-      }
+        return (<li key={x.guid}><NewsItem info={x} /></li>);
+      };
       return (
   			<ul>
           { this.props.newsItems.map(makeList) }
@@ -102,20 +102,21 @@ var NewsApp = React.createClass({
     
 		this.setState({filterText: filterText, filteredNewsItems: newFilteredNewsList});
 	},
-  handleSubmit: function(filterText) {    
+  handleSubmit: function(filterText) {
+    var newTags;  
     if (filterText[0] !== '-') {    
-      var newTags = this.state.filterTags.concat(filterText.toLowerCase());
+      newTags = this.state.filterTags.concat(filterText.toLowerCase());
       this.setState({filterText: '', filterTags: newTags});
       return;
     } else {
-      var newTags = this.state.filterTags.concat(filterText.toLowerCase());
+      newTags = this.state.filterTags.concat(filterText.toLowerCase());
       var newFilteredNewsList = this.filterListWithTags(this.state.newsItems, newTags);
       this.setState({filterText: '', filterTags: newTags, filteredNewsItems: newFilteredNewsList});
       return;
     }
   },
   handleTagClick: function(tagName) {
-    var tags = this.state.filterTags.filter(function(x) {return x != tagName});
+    var tags = this.state.filterTags.filter(function(x) {return x != tagName;});
     
     if (this.state.filterText.length > 0)
       tags = tags.concat(this.state.filterText);
@@ -127,7 +128,7 @@ var NewsApp = React.createClass({
     console.log("begin...", list, tags);
     if (list.length === 0) {
       return [];
-    } else if (tags.length == 0) { 
+    } else if (tags.length === 0) { 
       return list;      
     } else if (tags[0] === '-') { /* move empty string check elsewhere */
       return this.filterListWithTags(list, tags.slice(1));
@@ -136,17 +137,17 @@ var NewsApp = React.createClass({
         return function(x) {
           return x.title.toLowerCase().indexOf(curTag) !== -1
               || x.metatitle.toLowerCase().indexOf(curTag) !== -1
-              || x.metalink.toLowerCase().indexOf(curTag) !== -1
-        }
-      }
+              || x.metalink.toLowerCase().indexOf(curTag) !== -1;
+        };
+      };
   
       var filterContainsNot = function(curTag, x) {
         return function(x) {
           return x.title.toLowerCase().indexOf(curTag) == -1
               && x.metatitle.toLowerCase().indexOf(curTag) == -1
-              && x.metalink.toLowerCase().indexOf(curTag) == -1
-        }
-      }
+              && x.metalink.toLowerCase().indexOf(curTag) == -1;
+        };
+      };
 
       var curTag = tags[0];
       var filteredList;      
@@ -165,7 +166,7 @@ var NewsApp = React.createClass({
     this.setState({showAbout: !this.state.showAbout});
   },
 	render: function() {
-    var main = this.state.showAbout ? <HowCow /> : (<NewsList newsItems={this.state.filteredNewsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>)
+    var main = this.state.showAbout ? <HowCow /> : (<NewsList newsItems={this.state.filteredNewsItems} filterText={this.state.filterText.toLowerCase()} filterTags={this.state.filterTags}/>);
     return (
       <div id="MainContent">
         <div id="headerInfo">

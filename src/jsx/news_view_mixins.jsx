@@ -13,7 +13,7 @@ var RandomHelpMixin = {
   getRandomInteger: function(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
-}
+};
 
 var SetIntervalMixin = {
   componentWillMount: function() {

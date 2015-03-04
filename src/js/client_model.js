@@ -12,8 +12,7 @@ function getStateFromNumberOfReaders() {
 
 var sourceList = new ObservableThing([]);
 function getStateFromSourceList() {
-  var s = sourceList.get();
-  return sourceList.get()
+  return sourceList.get();
 }
 
 socket.on('nxws items', function(msg) {

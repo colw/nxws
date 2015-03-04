@@ -1,26 +1,26 @@
 var ObservableThing = function(thing) {
   this.thing = thing;
   this.onChangeListener = null;
-}
+};
 
 ObservableThing.prototype.set = function(newValue) {
   this.thing = newValue;
   this.notify();
-}
+};
 
 ObservableThing.prototype.get = function() {
   return this.thing;
-}
+};
 
 ObservableThing.prototype.setChangeListener = function(listener) {
   this.onChangeListener = listener;
-}
+};
 
 ObservableThing.prototype.notify = function() {
-  if (this.onChangeListener != null) {
+  if (this.onChangeListener !== null) {
     this.onChangeListener();
   }
-}
+};
 
 var socket = io();
 
@@ -36,8 +36,7 @@ function getStateFromNumberOfReaders() {
 
 var sourceList = new ObservableThing([]);
 function getStateFromSourceList() {
-  var s = sourceList.get();
-  return sourceList.get()
+  return sourceList.get();
 }
 
 socket.on('nxws items', function(msg) {
@@ -74,7 +73,7 @@ var RandomHelpMixin = {
   getRandomInteger: function(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
-}
+};
 
 var SetIntervalMixin = {
   componentWillMount: function() {
@@ -186,8 +185,12 @@ var NewsTagList = React.createClass({displayName: "NewsTagList",
         text = x.slice(1);
         className="tagItem tagExclude";
       }
-      return React.createElement("li", {key: x, className: className}, React.createElement("button", {type: "button", value: x, onClick: that.handleClick}, text))
-    }
+      return (
+        React.createElement("li", {key: x, className: className}, 
+          React.createElement("button", {type: "button", value: x, onClick: that.handleClick}, text)
+        )
+      );
+    };
     return (
       React.createElement("ul", {id: "tagList"},  this.props.filterTags.map(makeList) )
     );
@@ -197,7 +200,7 @@ var NewsTagList = React.createClass({displayName: "NewsTagList",
 var NewsSources = React.createClass({displayName: "NewsSources",
   mixins: [FormatURLMixin],
   getInitialState: function() {
-    return {showSources: false}
+    return {showSources: false};
   },
   handleClick: function() {
     this.setState({ showSources: !this.state.showSources });
@@ -205,11 +208,11 @@ var NewsSources = React.createClass({displayName: "NewsSources",
 	render: function() {
     var that = this;
     var makeList = function(x) {
-      return React.createElement("li", {key: x, className: "sourceItem"}, x)
-    }
+      return (React.createElement("li", {key: x, className: "sourceItem"}, x));
+    };
     var elt = null;
     if (this.state.showSources) {
-      elt = React.createElement("ul", null,  this.props.sourceList.map(makeList) )
+      elt = (React.createElement("ul", null,  this.props.sourceList.map(makeList) ));
     }
     return (
       React.createElement("span", {id: "sourceList", onClick: this.handleClick}, 
@@ -333,17 +336,17 @@ var NewsItem = React.createClass({displayName: "NewsItem",
 
 var NewsList = React.createClass({displayName: "NewsList", 
 	render: function() {
-    if (this.props.newsItems.length == 0) {
+    if (this.props.newsItems.length === 0) {
       return (
         React.createElement("div", {id: "emptyList"}, 
           React.createElement("p", null, "Please wait for some news to be published. Shan't be long."), 
           React.createElement("p", {id: "nogoodnews"}, "No news is good moos, right?")
         )
-      )
+      );
     } else {
       var makeList = function(x) {
-        return React.createElement("li", {key: x.guid}, React.createElement(NewsItem, {info: x}))
-      }
+        return (React.createElement("li", {key: x.guid}, React.createElement(NewsItem, {info: x})));
+      };
       return (
   			React.createElement("ul", null, 
            this.props.newsItems.map(makeList) 
@@ -409,20 +412,21 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     
 		this.setState({filterText: filterText, filteredNewsItems: newFilteredNewsList});
 	},
-  handleSubmit: function(filterText) {    
+  handleSubmit: function(filterText) {
+    var newTags;  
     if (filterText[0] !== '-') {    
-      var newTags = this.state.filterTags.concat(filterText.toLowerCase());
+      newTags = this.state.filterTags.concat(filterText.toLowerCase());
       this.setState({filterText: '', filterTags: newTags});
       return;
     } else {
-      var newTags = this.state.filterTags.concat(filterText.toLowerCase());
+      newTags = this.state.filterTags.concat(filterText.toLowerCase());
       var newFilteredNewsList = this.filterListWithTags(this.state.newsItems, newTags);
       this.setState({filterText: '', filterTags: newTags, filteredNewsItems: newFilteredNewsList});
       return;
     }
   },
   handleTagClick: function(tagName) {
-    var tags = this.state.filterTags.filter(function(x) {return x != tagName});
+    var tags = this.state.filterTags.filter(function(x) {return x != tagName;});
     
     if (this.state.filterText.length > 0)
       tags = tags.concat(this.state.filterText);
@@ -434,7 +438,7 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     console.log("begin...", list, tags);
     if (list.length === 0) {
       return [];
-    } else if (tags.length == 0) { 
+    } else if (tags.length === 0) { 
       return list;      
     } else if (tags[0] === '-') { /* move empty string check elsewhere */
       return this.filterListWithTags(list, tags.slice(1));
@@ -443,17 +447,17 @@ var NewsApp = React.createClass({displayName: "NewsApp",
         return function(x) {
           return x.title.toLowerCase().indexOf(curTag) !== -1
               || x.metatitle.toLowerCase().indexOf(curTag) !== -1
-              || x.metalink.toLowerCase().indexOf(curTag) !== -1
-        }
-      }
+              || x.metalink.toLowerCase().indexOf(curTag) !== -1;
+        };
+      };
   
       var filterContainsNot = function(curTag, x) {
         return function(x) {
           return x.title.toLowerCase().indexOf(curTag) == -1
               && x.metatitle.toLowerCase().indexOf(curTag) == -1
-              && x.metalink.toLowerCase().indexOf(curTag) == -1
-        }
-      }
+              && x.metalink.toLowerCase().indexOf(curTag) == -1;
+        };
+      };
 
       var curTag = tags[0];
       var filteredList;      
@@ -472,7 +476,7 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     this.setState({showAbout: !this.state.showAbout});
   },
 	render: function() {
-    var main = this.state.showAbout ? React.createElement(HowCow, null) : (React.createElement(NewsList, {newsItems: this.state.filteredNewsItems, filterText: this.state.filterText.toLowerCase(), filterTags: this.state.filterTags}))
+    var main = this.state.showAbout ? React.createElement(HowCow, null) : (React.createElement(NewsList, {newsItems: this.state.filteredNewsItems, filterText: this.state.filterText.toLowerCase(), filterTags: this.state.filterTags}));
     return (
       React.createElement("div", {id: "MainContent"}, 
         React.createElement("div", {id: "headerInfo"}, 
