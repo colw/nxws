@@ -3,7 +3,7 @@ var HowCow = React.createClass({
 		return (
 			<div id="aboutCow">
 
-                <h2 id="cowwhat">What?</h2>                
+                <h2 id="cowwwwswhat">What?</h2>                
                     
                 <p>This feed won't give you instant gratification. At first it
                 won't give you anything. It's intended for a grazer. Come back
