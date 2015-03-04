@@ -41,6 +41,10 @@ var HowCow = React.createClass({
       
         <p><a href="http://gulpjs.com" target="_blank">Gulp</a> is a big help too, but that's about enough
         tech. Read the <a href="http://github.com/colw/nxws" target="_blank">code</a> if you're curious.</p>
+        
+        <h2 id="cowwho">Who?</h2>
+        
+        <p id="smallwho">I can be reached <a href="mailto:colw@outlook.com">here</a>.</p>
 
       </div>
 		);

@@ -287,7 +287,11 @@ var HowCow = React.createClass({displayName: "HowCow",
         href: "http://facebook.github.io/react", target: "_blank"}, "React"), ". "), 
       
         React.createElement("p", null, React.createElement("a", {href: "http://gulpjs.com", target: "_blank"}, "Gulp"), " is a big help too, but that's about enough" + ' ' +
-        "tech. Read the ", React.createElement("a", {href: "http://github.com/colw/nxws", target: "_blank"}, "code"), " if you're curious.")
+        "tech. Read the ", React.createElement("a", {href: "http://github.com/colw/nxws", target: "_blank"}, "code"), " if you're curious."), 
+        
+        React.createElement("h2", {id: "cowwho"}, "Who?"), 
+        
+        React.createElement("p", {id: "smallwho"}, "I can be reached ", React.createElement("a", {href: "mailto:colw@outlook.com"}, "here"), ".")
 
       )
 		);
