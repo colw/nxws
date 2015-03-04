@@ -1,13 +1,14 @@
 # News Aggregator
 
-A simple Node news aggregator that uses sockets to communicate with the user, and React to render.
+A simple news aggregator in the browser.
 
 News feeds are fetched periodically and if the date of the article is a recent one, it is sent to the users.
 
-- [Node.js](http://nodejs.org) Runs the server and periodically checks and parses feeds.
+- [Node.js](http://nodejs.org) runs the server and periodically checks and parses feeds.
 - Thanks to [Feed Parser](https://github.com/danmactough/node-feedparser) for doing its job really well.
 - [Socket.io](http://socket.io) is used for communicating with the browser.
 - Facebook's [React](http://facebook.github.io/react) is used to render in the browser.
+- [SASS](http://sass-lang.com) for CSS.
 - [Gulp](http://gulpjs.com) watches over your files, and transforms JSX and SASS for you automatically.
 
 ## Install and Run
@@ -36,6 +37,8 @@ If you wish to exclude items, place a '-' out the front of the filter you are en
 
 ## Responsive
 
-It should confirm well to the device used, but I do think of it as a desktop app. At the very least, by it's nature, you can't load it up and see what's what straight away. So Ddon't expect using it on your phone as you wait for your train to be of much use. Even still, if it looks like rubbish on your device, let me know.
+It should confirm well to the device used, but I do think of it as a desktop app. At the very least, by it's nature,
+you can't load it up and see what's what straight away. So don't expect to be using it on your phone as you wait for
+your train. Even still, if it looks like rubbish on your device, let me know.
     
     
