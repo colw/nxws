@@ -15,6 +15,9 @@ body {
 #headerInfo {
   font-family: "Gill Sans MT", "Gill Sans", "Gill Sans Std", Verdana, "Bitstream Vera Sans"; }
 
+#aboutCow {
+  font-size: smaller; }
+
 @media only screen and (min-width: 1024px), only screen and (max-width: 1023px) {
   body {
     font-size: large; }
@@ -53,7 +56,7 @@ body {
     #headerInfo p {
       margin: 0; }
     #headerInfo #cow {
-      cursor: help;
+      cursor: pointer;
       display: block; }
       #headerInfo #cow img {
         padding: 20px 0 10px 0;

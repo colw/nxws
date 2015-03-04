@@ -40,6 +40,10 @@ body {
   font-family: $font-stack;
 }
 
+#aboutCow {
+  font-size: smaller;
+}
+
 @media #{$normal}, #{$smallerwindow} {
   body {
     font-size: $font-size-desktop;
@@ -100,7 +104,7 @@ body {
     }
   
     #cow {
-      cursor: help;
+      cursor: pointer;
       display: block;      
       img {
         padding: 20px 0 10px 0;
