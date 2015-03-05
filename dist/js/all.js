@@ -432,7 +432,6 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     this.setState({filterTags: tags, filteredNewsItems: newFilteredNewsList});
   }, 
   filterListWithTags: function(list, tags) {
-    console.log("begin...", list, tags);
     if (list.length === 0) {
       return [];
     } else if (tags.length === 0) { 
@@ -440,19 +439,24 @@ var NewsApp = React.createClass({displayName: "NewsApp",
     } else if (tags[0] === '-') { /* move empty string check elsewhere */
       return this.filterListWithTags(list, tags.slice(1));
     } else { 
+      
+      var searchText = function(x) {
+        return  ((x.title?x.title:'') 
+                + (x.metatitle?x.metatitle:'')
+                + (x.metalink?x.metalink:'')).toLowerCase();
+      }
+      
       var filterContains = function(curTag, x) {
         return function(x) {
-          return x.title.toLowerCase().indexOf(curTag) !== -1
-              || x.metatitle.toLowerCase().indexOf(curTag) !== -1
-              || x.metalink.toLowerCase().indexOf(curTag) !== -1;
+          var xt = searchText(x);
+          return xt.indexOf(curTag) !== -1
         };
       };
   
       var filterContainsNot = function(curTag, x) {
         return function(x) {
-          return x.title.toLowerCase().indexOf(curTag) == -1
-              && x.metatitle.toLowerCase().indexOf(curTag) == -1
-              && x.metalink.toLowerCase().indexOf(curTag) == -1;
+          var xt = searchText(x);
+          return xt.indexOf(curTag) === -1
         };
       };
 
