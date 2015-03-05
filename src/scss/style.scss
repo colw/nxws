@@ -42,6 +42,35 @@ body {
 
 #aboutCow {
   font-size: smaller;
+  
+   .tutTags {
+     margin-top: 0.5em;
+     list-style: none outside none;
+     display: block;
+    
+     .tagItem {
+       margin-top: 3px;
+       margin-bottom: 3px;
+     }
+    
+    .tagItem button {
+      display: block;
+      border: none;
+  
+    }
+
+    .tagInclude button {
+      color: $tag-color-include;
+      background: $tag-bg-include;
+    }
+
+    .tagExclude button {
+      color: $tag-color-exclude;
+      background: $tag-bg-exclude;
+    } 
+  }
+  
+ 
 }
 
 @media #{$normal}, #{$smallerwindow} {

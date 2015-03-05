@@ -5,32 +5,40 @@ var HowCow = React.createClass({
 
         <h2 id="cowwhat">What?</h2>                
           
-        <p>This feed won't give you instant gratification. At first it won't give you anything. It's intended
-        for grazing. Come back in a few minutes or maybe more, and you can see the news will start to filter
-        in.</p>
-      
-        <p>Don't fret if you begin to see things you don't like. It's simple to filter.</p>
-        
-        <p>If you have a smaller appetite for humour, type <code>'-theonion.com'</code> into the filter box (be
-        mindful of the dash out front). Conversely, do you really enjoy stories about Australia? Or Beef? Enter
-        those words into the filter box. I can remember more than one. Click the tags to remove them and it's
-        like they were never there.</p>
+        <p>This is a world news feed. Give it a minute or two for items to be published.</p>
+                    
+        <p>It's very easy to search or filter by typing in the box. Instant actually. If you want to keep it,
+        just hit enter and the term will be added to a tag list. You can stack filter tags on top of each other.</p>
+          
+        <ul className="tutTags">
+          <li className="tagItem tagInclude"><button type="button">Highland Cows</button></li>          
+          <li className="tagItem tagInclude"><button type="button">Mountain Goats</button></li>          
+        </ul>
 
-        <p>Curious about where this news comes from? Click the word 'Sources'.</p>
+        <p>As an extra, place a dash (-) at the beginning of the term and you can choose what not to see.</p>
+          
+        <ul className="tutTags">
+          <li className="tagItem tagExclude"><button type="button">Beef</button></li>          
+        </ul>
 
-        <p>Take your time, the news won't stop. Even as you read this.</p>
+        <p>Tags are colour coded, so you will know how the list is being filtered. If you want to remove it, just click
+        it. It's like they were never there. Magic.</p>
+              
+        <p>Click the word 'Sources' (just above the cow) if you wish to see where the news comes from.</p>
+
+        <p>Take your time, the news will keep coming even as you read this.</p>
       
         <h2 id="cowwhy">Why?</h2>
       
         <p>I like reading news, and I like programming. You could also say I like to reinvent the wheel, but
         take a closer look and you may agree this feed is a little different.</p>
+      
+        <p>You cannot set the source of the news, but you can curate with broad, simple strokes, by using tagging.
+        Searching is fast too.</p>
 
         <p>This site is intended for slow movers and not those who find themselves in a hurry. It intentionally
         shows nothing when you load it, and from then it will only show news as it is published. It's about the
         present, at a speed you can work with.</p>
-
-        <p>You cannot set the source of the news, but you can curate with broad, simple strokes. Searching is
-        fast and efficient too.</p>
 
         <h2 id="cowhow">How?</h2>
       

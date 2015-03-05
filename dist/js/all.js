@@ -252,32 +252,40 @@ var HowCow = React.createClass({displayName: "HowCow",
 
         React.createElement("h2", {id: "cowwhat"}, "What?"), 
           
-        React.createElement("p", null, "This feed won't give you instant gratification. At first it won't give you anything. It's intended" + ' ' +
-        "for grazing. Come back in a few minutes or maybe more, and you can see the news will start to filter" + ' ' +
-        "in."), 
-      
-        React.createElement("p", null, "Don't fret if you begin to see things you don't like. It's simple to filter."), 
-        
-        React.createElement("p", null, "If you have a smaller appetite for humour, type ", React.createElement("code", null, "'-theonion.com'"), " into the filter box (be" + ' ' +
-        "mindful of the dash out front). Conversely, do you really enjoy stories about Australia? Or Beef? Enter" + ' ' +
-        "those words into the filter box. I can remember more than one. Click the tags to remove them and it's" + ' ' +
-        "like they were never there."), 
+        React.createElement("p", null, "This is a world news feed. Give it a minute or two for items to be published."), 
+                    
+        React.createElement("p", null, "It's very easy to search or filter by typing in the box. Instant actually. If you want to keep it," + ' ' +
+        "just hit enter and the term will be added to a tag list. You can stack filter tags on top of each other."), 
+          
+        React.createElement("ul", {className: "tutTags"}, 
+          React.createElement("li", {className: "tagItem tagInclude"}, React.createElement("button", {type: "button"}, "Highland Cows")), 
+          React.createElement("li", {className: "tagItem tagInclude"}, React.createElement("button", {type: "button"}, "Mountain Goats"))
+        ), 
 
-        React.createElement("p", null, "Curious about where this news comes from? Click the word 'Sources'."), 
+        React.createElement("p", null, "As an extra, place a dash (-) at the beginning of the term and you can choose what not to see."), 
+          
+        React.createElement("ul", {className: "tutTags"}, 
+          React.createElement("li", {className: "tagItem tagExclude"}, React.createElement("button", {type: "button"}, "Beef"))
+        ), 
 
-        React.createElement("p", null, "Take your time, the news won't stop. Even as you read this."), 
+        React.createElement("p", null, "Tags are colour coded, so you will know how the list is being filtered. If you want to remove it, just click" + ' ' +
+        "it. It's like they were never there. Magic."), 
+              
+        React.createElement("p", null, "Click the word 'Sources' (just above the cow) if you wish to see where the news comes from."), 
+
+        React.createElement("p", null, "Take your time, the news will keep coming even as you read this."), 
       
         React.createElement("h2", {id: "cowwhy"}, "Why?"), 
       
         React.createElement("p", null, "I like reading news, and I like programming. You could also say I like to reinvent the wheel, but" + ' ' +
         "take a closer look and you may agree this feed is a little different."), 
+      
+        React.createElement("p", null, "You cannot set the source of the news, but you can curate with broad, simple strokes, by using tagging." + ' ' +
+        "Searching is fast too."), 
 
         React.createElement("p", null, "This site is intended for slow movers and not those who find themselves in a hurry. It intentionally" + ' ' +
         "shows nothing when you load it, and from then it will only show news as it is published. It's about the" + ' ' +
         "present, at a speed you can work with."), 
-
-        React.createElement("p", null, "You cannot set the source of the news, but you can curate with broad, simple strokes. Searching is" + ' ' +
-        "fast and efficient too."), 
 
         React.createElement("h2", {id: "cowhow"}, "How?"), 
       

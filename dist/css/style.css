@@ -17,6 +17,22 @@ body {
 
 #aboutCow {
   font-size: smaller; }
+  #aboutCow .tutTags {
+    margin-top: 0.5em;
+    list-style: none outside none;
+    display: block; }
+    #aboutCow .tutTags .tagItem {
+      margin-top: 3px;
+      margin-bottom: 3px; }
+    #aboutCow .tutTags .tagItem button {
+      display: block;
+      border: none; }
+    #aboutCow .tutTags .tagInclude button {
+      color: white;
+      background: cornFlowerBlue; }
+    #aboutCow .tutTags .tagExclude button {
+      color: white;
+      background: lightCoral; }
 
 @media only screen and (min-width: 1024px), only screen and (max-width: 1023px) {
   body {
