@@ -104,6 +104,9 @@ var NewsApp = React.createClass({
 	},
   handleSubmit: function(filterText) {
     var newTags;  
+    if(filterText === '')
+      return;
+    
     if (filterText[0] !== '-') {    
       newTags = this.state.filterTags.concat(filterText.toLowerCase());
       this.setState({filterText: '', filterTags: newTags});
