@@ -1,14 +1,9 @@
 {
 	"remote": {
-      "Reuters": "http://feeds.reuters.com/Reuters/worldNews"
-    , "AFP": "http://www.afp.com/en/feed"
-    , "AP": "http://hosted2.ap.org/atom/APDEFAULT/3d281c11a96b4ad082fe88aa0db04305"
-    , "The NY Times": "http://www.nytimes.com/services/xml/rss/nyt/InternationalHome.xml"
-  	, "Aljazeera": "http://www.aljazeera.com/xml/rss/all.xml"
-    , "The Guardian": "http://www.theguardian.com/world/rss"
-    , "The Wash. Post": "http://feeds.washingtonpost.com/rss/world"
-    , "CityLab": "http://feeds.feedburner.com/TheAtlanticCities"
-    , "The New Yorker": "http://www.newyorker.com/feed/everything"
+      "Jezebel": "http://feeds.gawker.com/jezebel/full"
+    , "The Daily Currant": "http://dailycurrant.com/feed"
+    , "Gawker": "http://feeds.gawker.com/gawker/full"
     , "The Onion": "http://feeds.theonion.com/theonion/daily"
+    , "Clickhole": "http://www.clickhole.com/feeds/rss"
   }
 }
