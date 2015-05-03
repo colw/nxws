@@ -21,7 +21,7 @@ var HowCow = React.createClass({
           <li className="tagItem tagExclude"><button type="button">Beef</button></li>          
         </ul>
 
-        <p>Tags are colour coded, so you will know how the list is being filtered. If you want to remove it, just click
+        <p>Tags are colour coded, (blue for included, red for excluded) so you will know how the list is being filtered. If you want to remove it, just click
         it. It's like they were never there. Magic.</p>
               
         <p>Click the word 'Sources' (just above the cow) if you wish to see where the news comes from.</p>
@@ -29,26 +29,17 @@ var HowCow = React.createClass({
         <p>Take your time, the news will keep coming even as you read this.</p>
       
         <h2 id="cowwhy">Why?</h2>
-      
-        <p>I like reading news, and I like programming. You could also say I like to reinvent the wheel, but
-        take a closer look and you may agree this feed is a little different.</p>
-      
-        <p>You cannot set the source of the news, but you can curate with broad, simple strokes, by using tagging.
-        Searching is fast too.</p>
-
-        <p>This site is intended for slow movers and not those who find themselves in a hurry. It intentionally
+            
+        <p>This feed is a little different. It is intended for slow movers and not those who find themselves in a hurry. It intentionally
         shows nothing when you load it, and from then it will only show news as it is published. It's about the
         present, at a speed you can work with.</p>
 
+        <p>You cannot set the source of the news, but you can curate with broad, simple strokes by tagging.
+        Searching is fast too.</p>
+
         <h2 id="cowhow">How?</h2>
       
-        <p>Technically speaking, there is a <a href="http://www.nodejs.org" target="_blank">Node.js</a> back end
-        on the look out for news. When it finds some, it will send it straight to your browser using <a
-        href="http://socket.io" target="_blank">Socket.io</a>. The whole rendering experience is based upon <a
-        href="http://facebook.github.io/react" target="_blank">React</a>. </p>
-      
-        <p><a href="http://gulpjs.com" target="_blank">Gulp</a> is a big help too, but that's about enough
-        tech. Read the <a href="http://github.com/colw/nxws" target="_blank">code</a> if you're curious.</p>
+        <p>Read the <a href="http://github.com/colw/nxws" target="_blank">code</a> if you're curious.</p>
         
         <h2 id="cowwho">Who?</h2>
         

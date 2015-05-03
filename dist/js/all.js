@@ -268,7 +268,7 @@ var HowCow = React.createClass({displayName: "HowCow",
           React.createElement("li", {className: "tagItem tagExclude"}, React.createElement("button", {type: "button"}, "Beef"))
         ), 
 
-        React.createElement("p", null, "Tags are colour coded, so you will know how the list is being filtered. If you want to remove it, just click" + ' ' +
+        React.createElement("p", null, "Tags are colour coded, (blue for included, red for excluded) so you will know how the list is being filtered. If you want to remove it, just click" + ' ' +
         "it. It's like they were never there. Magic."), 
               
         React.createElement("p", null, "Click the word 'Sources' (just above the cow) if you wish to see where the news comes from."), 
@@ -276,26 +276,17 @@ var HowCow = React.createClass({displayName: "HowCow",
         React.createElement("p", null, "Take your time, the news will keep coming even as you read this."), 
       
         React.createElement("h2", {id: "cowwhy"}, "Why?"), 
-      
-        React.createElement("p", null, "I like reading news, and I like programming. You could also say I like to reinvent the wheel, but" + ' ' +
-        "take a closer look and you may agree this feed is a little different."), 
-      
-        React.createElement("p", null, "You cannot set the source of the news, but you can curate with broad, simple strokes, by using tagging." + ' ' +
-        "Searching is fast too."), 
-
-        React.createElement("p", null, "This site is intended for slow movers and not those who find themselves in a hurry. It intentionally" + ' ' +
+            
+        React.createElement("p", null, "This feed is a little different. It is intended for slow movers and not those who find themselves in a hurry. It intentionally" + ' ' +
         "shows nothing when you load it, and from then it will only show news as it is published. It's about the" + ' ' +
         "present, at a speed you can work with."), 
 
+        React.createElement("p", null, "You cannot set the source of the news, but you can curate with broad, simple strokes by tagging." + ' ' +
+        "Searching is fast too."), 
+
         React.createElement("h2", {id: "cowhow"}, "How?"), 
       
-        React.createElement("p", null, "Technically speaking, there is a ", React.createElement("a", {href: "http://www.nodejs.org", target: "_blank"}, "Node.js"), " back end" + ' ' +
-        "on the look out for news. When it finds some, it will send it straight to your browser using ", React.createElement("a", {
-        href: "http://socket.io", target: "_blank"}, "Socket.io"), ". The whole rendering experience is based upon ", React.createElement("a", {
-        href: "http://facebook.github.io/react", target: "_blank"}, "React"), ". "), 
-      
-        React.createElement("p", null, React.createElement("a", {href: "http://gulpjs.com", target: "_blank"}, "Gulp"), " is a big help too, but that's about enough" + ' ' +
-        "tech. Read the ", React.createElement("a", {href: "http://github.com/colw/nxws", target: "_blank"}, "code"), " if you're curious."), 
+        React.createElement("p", null, "Read the ", React.createElement("a", {href: "http://github.com/colw/nxws", target: "_blank"}, "code"), " if you're curious."), 
         
         React.createElement("h2", {id: "cowwho"}, "Who?"), 
         

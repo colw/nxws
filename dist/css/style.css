@@ -81,14 +81,16 @@ body {
       margin-top: 0.5em; }
     #headerInfo #filterTextInput {
       width: 100px; }
-    #headerInfo #sourceList ul {
-      list-style-type: none;
-      list-style-position: outside;
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      font-size: small;
-      color: gray; }
+    #headerInfo #sourceList {
+      cursor: pointer; }
+      #headerInfo #sourceList ul {
+        list-style-type: none;
+        list-style-position: outside;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        font-size: small;
+        color: gray; }
     #headerInfo #tagList {
       margin-top: 0.5em;
       padding: 0; }

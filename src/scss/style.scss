@@ -150,6 +150,8 @@ body {
     }
     
     #sourceList  {
+      cursor: pointer;
+      
       ul {
         list-style-type: none;
         list-style-position: outside;
